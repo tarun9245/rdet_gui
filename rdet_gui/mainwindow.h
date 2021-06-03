@@ -14,6 +14,13 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    QString getDumpsPath();
+    QString getMetaPath();
+    QString getAppsPath();
+    void runCommand(QString cmd);
+
+private slots:
+    void on_pushButtonSettings_clicked();
 
 private:
     Ui::MainWindow *ui;

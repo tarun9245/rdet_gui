@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>941</width>
-    <height>1812</height>
+    <width>1106</width>
+    <height>1653</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -123,9 +123,9 @@
     <property name="geometry">
      <rect>
       <x>620</x>
-      <y>230</y>
+      <y>190</y>
       <width>193</width>
-      <height>891</height>
+      <height>837</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -511,8 +511,8 @@
    <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>180</y>
+      <x>20</x>
+      <y>140</y>
       <width>191</width>
       <height>41</height>
      </rect>
@@ -526,14 +526,14 @@
      </font>
     </property>
     <property name="text">
-     <string>MISC</string>
+     <string>RDET</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_5">
     <property name="geometry">
      <rect>
-      <x>620</x>
-      <y>180</y>
+      <x>610</x>
+      <y>140</y>
       <width>191</width>
       <height>41</height>
      </rect>
@@ -547,16 +547,16 @@
      </font>
     </property>
     <property name="text">
-     <string>Ramparser</string>
+     <string>Ramparser Options</string>
     </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>40</x>
-      <y>230</y>
+      <y>185</y>
       <width>193</width>
-      <height>1446</height>
+      <height>1417</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -1199,32 +1199,29 @@
      </item>
     </layout>
    </widget>
-  </widget>
-  <widget class="QMenuBar" name="menuBar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>941</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <widget class="QMenu" name="menuSetting">
-    <property name="title">
-     <string>Setting</string>
+   <widget class="QPushButton" name="pushButtonSettings">
+    <property name="geometry">
+     <rect>
+      <x>954</x>
+      <y>20</y>
+      <width>101</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Times New Roman</family>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>Settings</string>
     </property>
    </widget>
-   <addaction name="menuSetting"/>
   </widget>
-  <widget class="QToolBar" name="mainToolBar">
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
-  </widget>
-  <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
