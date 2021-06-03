@@ -1,1 +1,5 @@
-build-rdet_gui-Desktop_Qt_5_13_0_MinGW_32_bit-Release\
+/build-rdet_gui-Desktop_Qt_5_13_0_MinGW_32_bit-Release/
+/build-rdet_gui-Desktop_Qt_5_13_0_MinGW_32_bit-Release/*
+/rdet_gui/rdet_gui.pro.user
+/rdet_gui/settings_png.png
+/rdet_gui/settings_png_1.png
