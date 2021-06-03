@@ -14,6 +14,11 @@ class settings : public QWidget
 public:
     explicit settings(QWidget *parent = nullptr);
     ~settings();
+    void setRdetPath(QString path);
+    QString getRdetPath();
+
+private slots:
+    void on_pushButton_clicked();
 
 private:
     Ui::settings *ui;
