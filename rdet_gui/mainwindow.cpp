@@ -2,12 +2,14 @@
 #include "ui_mainwindow.h"
 #include <qdebug.h>
 #include "settings.h"
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    rdetPath = setting->getRdetPath();
 //    ui->pushButtonSettings->setIcon(QIcon("C:/Users/tarkum/Downloads/GitProject/rdet_gui/rdet_gui/settings_png.png"));
 //    ui->pushButtonSettings->setIconSize(QSize(50,50));
 }
@@ -20,8 +22,9 @@ MainWindow::~MainWindow()
 void MainWindow::on_pushButtonSettings_clicked()
 {
     qDebug()<<"Inside void MainWindow::on_pushButtonSettings_clicked()";
-    settings *setting = new settings();
+    setting = new settings();
     setting->show();
+
     qDebug()<<"Exiting void MainWindow::on_pushButtonSettings_clicked()";
 }
 
@@ -60,4 +63,38 @@ void MainWindow::runCommand(QString cmd)
     system(cmd.toUtf8().data());
     system("pause>nil");
     qDebug()<<"Exiting void MainWindow::runCommand(QString cmd)";
+}
+
+
+QString MainWindow::rdetCmd()
+{
+    qDebug()<<"inside QString MainWindow::rdetCmd(QString metaPath, QString dumpsPath, QString appsPath, QString options)";
+    QString cmd = "perl " + rdetPath + "\\rdet.pl " + dumpsPath + " " + metaPath;
+    if(appsPath != "") {
+        cmd += " --apps " + appsPath;
+    }
+    if(options != "") {
+        cmd +=  " " + options;
+    }
+
+    qDebug()<<"rdet cmd is "<<cmd;
+
+    qDebug()<<"inside QString MainWindow::rdetCmd(QString metaPath, QString dumpsPath, QString appsPath, QString options)";
+    return cmd;
+}
+
+void MainWindow::on_pushButtonSubmit_clicked()
+{
+    qDebug()<<"Inside void MainWindow::on_pushButtonSubmit_clicked()";
+    rdetPath = setting->getRdetPath();
+    metaPath = ui->lineEditMetaPath->text();
+    dumpsPath = ui->lineEditDumpPath->text();
+    appsPath = ui->lineEditAppsPath->text();
+    if(metaPath == "" || dumpsPath == "") {
+        QMessageBox::warning(this,tr("Error"), tr("Dump or Meta location cannot be Empty!"));
+        return;
+    }
+    QString cmd = rdetCmd();
+    runCommand(cmd);
+    qDebug()<<"Exiting void MainWindow::on_pushButtonSubmit_clicked()";
 }

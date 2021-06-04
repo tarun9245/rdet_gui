@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-
+#include "settings.h"
 namespace Ui {
 class MainWindow;
 }
@@ -18,12 +18,24 @@ public:
     QString getMetaPath();
     QString getAppsPath();
     void runCommand(QString cmd);
+    QString rdetCmd();
+    QString ramparserCmd();
+    QString memoryCorruptionCmd();
+    QString tzParserCmd();
 
 private slots:
     void on_pushButtonSettings_clicked();
 
+    void on_pushButtonSubmit_clicked();
+
 private:
     Ui::MainWindow *ui;
+    settings *setting;
+    QString rdetPath;
+    QString metaPath;
+    QString dumpsPath;
+    QString appsPath;
+    QString options;
 };
 
 #endif // MAINWINDOW_H

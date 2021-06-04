@@ -511,7 +511,7 @@
    <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
-      <x>20</x>
+      <x>40</x>
       <y>140</y>
       <width>191</width>
       <height>41</height>
@@ -532,7 +532,7 @@
    <widget class="QLabel" name="label_5">
     <property name="geometry">
      <rect>
-      <x>610</x>
+      <x>620</x>
       <y>140</y>
       <width>191</width>
       <height>41</height>
@@ -1219,6 +1219,27 @@
     </property>
     <property name="text">
      <string>Settings</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButtonSubmit">
+    <property name="geometry">
+     <rect>
+      <x>930</x>
+      <y>680</y>
+      <width>111</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Times New Roman</family>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Submit</string>
     </property>
    </widget>
   </widget>
