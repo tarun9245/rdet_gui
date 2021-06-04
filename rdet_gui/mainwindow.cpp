@@ -10,6 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     rdetPath = setting->getRdetPath();
+    on_checkBox_ramparser_stateChanged(0);
 //    ui->pushButtonSettings->setIcon(QIcon("C:/Users/tarkum/Downloads/GitProject/rdet_gui/rdet_gui/settings_png.png"));
 //    ui->pushButtonSettings->setIconSize(QSize(50,50));
 }
@@ -97,4 +98,39 @@ void MainWindow::on_pushButtonSubmit_clicked()
     QString cmd = rdetCmd();
     runCommand(cmd);
     qDebug()<<"Exiting void MainWindow::on_pushButtonSubmit_clicked()";
+}
+
+void MainWindow::on_checkBox_ramparser_stateChanged(int arg1)
+{
+    qDebug()<<"Inside void MainWindow::on_checkBox_ramparser_stateChanged(int arg1)";
+    qDebug()<<"arg1 = "<<arg1;
+    ui->checkBox_parse_debug_image->setEnabled(arg1);
+    ui->checkBox_wdog->setEnabled(arg1);
+    ui->checkBox_qtf->setEnabled(arg1);
+    ui->checkBox_slabsummary->setEnabled(arg1);
+    ui->checkBox_print_ionbuffer->setEnabled(arg1);
+    ui->checkBox_print_pagetypeinfo->setEnabled(arg1);
+    ui->checkBox_print_memory_info->setEnabled(arg1);
+    ui->checkBox_print_pagetracking->setEnabled(arg1);
+    ui->checkBox_print_memstat->setEnabled(arg1);
+    ui->checkBox_print_lsof->setEnabled(arg1);
+    ui->checkBox_slabinfo->setEnabled(arg1);
+    ui->checkBox_cpr3_info->setEnabled(arg1);
+    ui->checkBox_print_vmalloc->setEnabled(arg1);
+    ui->checkBox_sym_path->setEnabled(arg1);
+    ui->checkBox_print_tasks->setEnabled(arg1);
+    ui->checkBox_dump_ftrace->setEnabled(arg1);
+    ui->checkBox_sched_info->setEnabled(arg1);
+    ui->checkBox_print_irqs->setEnabled(arg1);
+    ui->checkBox_print_workqueues->setEnabled(arg1);
+    ui->checkBox_print_kconfig->setEnabled(arg1);
+    ui->checkBox_print_rtb->setEnabled(arg1);
+    ui->checkBox_timer_list->setEnabled(arg1);
+    ui->checkBox_print_tasks_timestamps->setEnabled(arg1);
+    ui->checkBox_print_runqueues->setEnabled(arg1);
+    ui->checkBox_print_softirq_stat->setEnabled(arg1);
+    ui->checkBox_print_iommu_pg_tables->setEnabled(arg1);
+    ui->checkBox_print_filetracking->setEnabled(arg1);
+    ui->checkBox_logcat->setEnabled(arg1);
+    qDebug()<<"Exiting void MainWindow::on_checkBox_ramparser_stateChanged(int arg1)";
 }

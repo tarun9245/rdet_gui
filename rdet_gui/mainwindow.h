@@ -28,6 +28,8 @@ private slots:
 
     void on_pushButtonSubmit_clicked();
 
+    void on_checkBox_ramparser_stateChanged(int arg1);
+
 private:
     Ui::MainWindow *ui;
     settings *setting;
