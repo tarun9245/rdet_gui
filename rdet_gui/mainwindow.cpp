@@ -100,21 +100,74 @@ void MainWindow::on_pushButtonSubmit_clicked()
         return;
     }
 
-
     metaHandler meta(metaPath);
-    QString cmd;
+    if(!meta.isValidMeta()) {
+        QMessageBox::warning(this,tr("Error"), tr("Unable to open contents.xml file at given META location.."));
+        return;
+    }
+    if(appsPath == "") {
+        qDebug()<<"Using APPS symbol from Meta.";
+        appsPath = meta.getAppsPath();
+    }else {
+        if(appsPath.at(appsPath.length() - 1) != '\\') {
+            appsPath += "\\";
+        }
+    }
+    targetName = meta.getChipSet();
+    qseeFileName = meta.getQseeFileName();
+    qseeFilePath = meta.getQseeFilePath();
+    monFileName = meta.getMonFileName();
+    monFilePath = meta.getMonFilePath();
+    hypFileName = meta.getHypFileName();
+    hypFilePath = meta.getHypFilePath();
+    aopFileName = meta.getAopFileName();
+    aopFilePath = meta.getAopFilePath();
+    rpmFileName = meta.getRpmFileName();
+    rpmFilePath = meta.getRpmFilePath();
+
     QString hardware = getHardwareName(targetName);
-    if(ui->checkBox_ramparser->checkState() == Qt::Checked) {
-        cmd = ramparserCmd(hardware);
+    if(hardware == "") {
+        QString msg = targetName + " Target Support is Not added to RDET.";
+        QMessageBox::warning(this,tr("Error"), tr(msg.toUtf8().constData()));
+        return;
+    }
+
+    QString cmd;
+    if(ui->checkBox_module_symbol->checkState() == Qt::Checked) {
+        cmd = module_symbolCmd();
         //runCommand(cmd);
     }
     if(ui->checkBox_ramparser->checkState() == Qt::Checked) {
         cmd = ramparserCmd(hardware);
         //runCommand(cmd);
     }
-
-
-
+    if(ui->checkBox_ramparser_svm->checkState() == Qt::Checked) {
+        //cmd = ramparser_svmCmd();
+        //runCommand(cmd);
+    }
+    if(ui->checkBox_dcc_wrapper->checkState() == Qt::Checked) {
+        cmd = dcc_wrapperCmd();
+        //runCommand(cmd);
+    }
+    if(ui->checkBox_task_stats->checkState() == Qt::Checked) {
+        cmd = task_statsCmd();
+        //runCommand(cmd);
+    }
+    if(ui->checkBox_DDRCookies->checkState() == Qt::Checked) {
+        cmd = ddrCookiesCmd();
+        //runCommand(cmd);
+    }
+    if(ui->checkBox_read_power_collapse_cnt->checkState() == Qt::Checked) {
+        //runCommand(cmd);
+    }
+    if(ui->checkBox_excessive_logging->checkState() == Qt::Checked) {
+        cmd = excessive_loggingCmd();
+        //runCommand(cmd);
+    }
+    if(ui->checkBox_Rdet_attachment->checkState() == Qt::Checked) {
+        cmd = rdet_html_genCmd();
+        //runCommand(cmd);
+    }
     //runCommand(cmd);
     qDebug()<<"Exiting void MainWindow::on_pushButtonSubmit_clicked()";
 }
@@ -158,7 +211,7 @@ QString MainWindow::ramparserCmd(QString hardware)
 {
     qDebug()<<"Inside QString MainWindow::ramparserCmd()";
     QString cmd = "py -3 " + rdetPath + "\\lib\\support_scripts\\ramparse\\ramparse_handler.py --vmlinux ";
-    cmd += appsPath + "\\vmlinux" + " --auto-dump " + dumpsPath;
+    cmd += appsPath + "vmlinux" + " --auto-dump " + dumpsPath;
     cmd += " --force-hardware " + hardware;
     cmd += " --dmesg --t32launcher --ddr-compare --clock-dump --check-for-panic --print-reserved-mem";
     cmd += " --lpm --regulator --ipc_logging --ipa --hotplug --kbootlog --wakeup";
@@ -221,7 +274,9 @@ QString MainWindow::ramparserCmd(QString hardware)
         cmd += " --logcat";
 
     cmd += " -o " + outputPath;
-
+    if(hypFileName != "") {
+        cmd += " --hyp " + hypFilePath + hypFileName;
+    }
     qDebug()<<"ramparser cmd = "<<cmd;
     qDebug()<<"Exiting QString MainWindow::ramparserCmd()";
     return cmd;
@@ -231,7 +286,7 @@ QString MainWindow::module_symbolCmd()
 {
     QString cmd = "py -3 " + rdetPath + "\\lib\\support_scripts\\module_symbol\\module_symbol.py ";
     qDebug()<<"Inside QString MainWindow::module_symbolCmd()";
-    cmd += dumpsPath + " " + appsPath + "\\vmlinux --target " + targetName;
+    cmd += dumpsPath + " " + appsPath + "vmlinux --target " + targetName;
     qDebug()<<"cmd = "<<cmd;
     qDebug()<<"Exiting QString MainWindow::module_symbolCmd()";
     return cmd;

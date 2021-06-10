@@ -17,7 +17,7 @@ public:
     QString getDumpsPath();
     QString getMetaPath();
     QString getAppsPath();
-    QString getHardwareName();
+    QString getHardwareName(QString targetName);
     void runCommand(QString cmd);
     QString rdetCmd();
     QString ramparserCmd(QString hardware);
@@ -47,6 +47,11 @@ private:
     QString dumpsPath, outputPath;
     QString appsPath;
     QString options, targetName;
+    QString qseeFileName,qseeFilePath;
+    QString monFileName, monFilePath;
+    QString hypFileName, hypFilePath;
+    QString aopFileName, aopFilePath;
+    QString rpmFileName, rpmFilePath;
 };
 
 #endif // MAINWINDOW_H
