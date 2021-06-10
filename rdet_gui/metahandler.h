@@ -9,6 +9,7 @@ class metaHandler
 private:
     QString appsFileName,qseeFileName,monFileName,hypFileName,aopFileName,rpmFileName;
     QString chipset,appsPath,tzPath,aopFilePath,rpmFilePath, monFilePath,hypFilePath,qseeFilePath;
+    bool isValidMetaLocation = true;
 public:
     metaHandler();
     metaHandler(QString);
@@ -28,6 +29,7 @@ public:
     QString stringTrimmer(QString);
     QString pathMaker(QString inputPath);
     void printAll();
+    bool isValidMeta();
 
 };
 

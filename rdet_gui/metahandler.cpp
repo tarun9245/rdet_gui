@@ -1,6 +1,7 @@
 #include "metahandler.h"
 #include <qdebug.h>
 #include <QFile>
+#include <QMessageBox>
 
 metaHandler::metaHandler()
 {
@@ -18,6 +19,7 @@ metaHandler::metaHandler(QString metaPath)
     qDebug()<<"file path = "<<metaPath +"\\contents.xml";
     if(!contentFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
         qDebug()<<"Unable to open the contents.xml file..";
+        isValidMetaLocation = false;
         return;
     }
     QTextStream file (&contentFile);
@@ -189,4 +191,8 @@ void metaHandler::printAll()
     qDebug()<<"RPM file name = "<<rpmFileName;
     qDebug()<<"RPM file path = "<<rpmFilePath;
 
+}
+
+bool metaHandler::isValidMeta() {
+    return isValidMetaLocation;
 }
