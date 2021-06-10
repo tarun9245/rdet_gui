@@ -27,10 +27,12 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
+        metahandler.cpp \
         settings.cpp
 
 HEADERS += \
         mainwindow.h \
+        metahandler.h \
         settings.h
 
 FORMS += \

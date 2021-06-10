@@ -17,7 +17,7 @@ public:
     QString getDumpsPath();
     QString getMetaPath();
     QString getAppsPath();
-    QString getHardwareName();
+    QString getHardwareName(QString targetName);
     void runCommand(QString cmd);
     QString rdetCmd();
     QString ramparserCmd(QString hardware);

@@ -3,6 +3,9 @@
 #include <qdebug.h>
 #include "settings.h"
 #include <QMessageBox>
+#include "metahandler.h"
+#include <qjsonobject.h>
+#include <qjsondocument.h>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -32,7 +35,7 @@ void MainWindow::on_pushButtonSettings_clicked()
 QString MainWindow::getDumpsPath()
 {
     qDebug()<<"Inside QString MainWindow::getDumpsPath()";
-    QString str = ui->lineEditDumpPath->text();
+    QString str = ui->lineEditDumpPath->text().trimmed();
     qDebug()<<"Str = "<<str;
 
     qDebug()<<"Exiting QString MainWindow::getDumpsPath()";
@@ -42,7 +45,7 @@ QString MainWindow::getDumpsPath()
 QString MainWindow::getMetaPath()
 {
     qDebug()<<"Inside QString MainWindow::getMetaPath()";
-    QString str = ui->lineEditMetaPath->text();
+    QString str = ui->lineEditMetaPath->text().trimmed();
     qDebug()<<"Str = "<<str;
     qDebug()<<"Exiting QString MainWindow::getMetaPath()";
     return str;
@@ -51,7 +54,7 @@ QString MainWindow::getMetaPath()
 QString MainWindow::getAppsPath()
 {
     qDebug()<<"Inside QString MainWindow::getAppsPath()";
-    QString str = ui->lineEditAppsPath->text();
+    QString str = ui->lineEditAppsPath->text().trimmed();
     qDebug()<<"Str = "<<str;
     qDebug()<<"Exiting QString MainWindow::getAppsPath()";
     return str;
@@ -88,15 +91,31 @@ void MainWindow::on_pushButtonSubmit_clicked()
 {
     qDebug()<<"Inside void MainWindow::on_pushButtonSubmit_clicked()";
     rdetPath = setting->getRdetPath();
-    metaPath = ui->lineEditMetaPath->text();
-    dumpsPath = ui->lineEditDumpPath->text();
-    appsPath = ui->lineEditAppsPath->text();
+    metaPath = ui->lineEditMetaPath->text().trimmed();
+    dumpsPath = ui->lineEditDumpPath->text().trimmed();
+    appsPath = ui->lineEditAppsPath->text().trimmed();
+    outputPath = dumpsPath;
     if(metaPath == "" || dumpsPath == "") {
         QMessageBox::warning(this,tr("Error"), tr("Dump or Meta location cannot be Empty!"));
         return;
     }
-    QString cmd = rdetCmd();
-    runCommand(cmd);
+
+
+    metaHandler meta(metaPath);
+    QString cmd;
+    QString hardware = getHardwareName(targetName);
+    if(ui->checkBox_ramparser->checkState() == Qt::Checked) {
+        cmd = ramparserCmd(hardware);
+        //runCommand(cmd);
+    }
+    if(ui->checkBox_ramparser->checkState() == Qt::Checked) {
+        cmd = ramparserCmd(hardware);
+        //runCommand(cmd);
+    }
+
+
+
+    //runCommand(cmd);
     qDebug()<<"Exiting void MainWindow::on_pushButtonSubmit_clicked()";
 }
 
@@ -117,7 +136,7 @@ void MainWindow::on_checkBox_ramparser_stateChanged(int arg1)
     ui->checkBox_slabinfo->setEnabled(arg1);
     ui->checkBox_cpr3_info->setEnabled(arg1);
     ui->checkBox_print_vmalloc->setEnabled(arg1);
-    ui->checkBox_sym_path->setEnabled(arg1);
+    ui->checkBox_dtb->setEnabled(arg1);
     ui->checkBox_print_tasks->setEnabled(arg1);
     ui->checkBox_dump_ftrace->setEnabled(arg1);
     ui->checkBox_sched_info->setEnabled(arg1);
@@ -133,4 +152,170 @@ void MainWindow::on_checkBox_ramparser_stateChanged(int arg1)
     ui->checkBox_print_filetracking->setEnabled(arg1);
     ui->checkBox_logcat->setEnabled(arg1);
     qDebug()<<"Exiting void MainWindow::on_checkBox_ramparser_stateChanged(int arg1)";
+}
+
+QString MainWindow::ramparserCmd(QString hardware)
+{
+    qDebug()<<"Inside QString MainWindow::ramparserCmd()";
+    QString cmd = "py -3 " + rdetPath + "\\lib\\support_scripts\\ramparse\\ramparse_handler.py --vmlinux ";
+    cmd += appsPath + "\\vmlinux" + " --auto-dump " + dumpsPath;
+    cmd += " --force-hardware " + hardware;
+    cmd += " --dmesg --t32launcher --ddr-compare --clock-dump --check-for-panic --print-reserved-mem";
+    cmd += " --lpm --regulator --ipc_logging --ipa --hotplug --kbootlog --wakeup";
+
+    if(ui->checkBox_parse_debug_image->checkState() == Qt::Checked)
+        cmd += " --parse-debug-image";
+    if(ui->checkBox_wdog->checkState() == Qt::Checked)
+        cmd += " --watchdog";
+    if(ui->checkBox_qtf->checkState() == Qt::Checked)
+        cmd += " --qtf";
+    if(ui->checkBox_slabsummary->checkState() == Qt::Checked)
+        cmd += " --slabsummary";
+    if(ui->checkBox_print_ionbuffer->checkState() == Qt::Checked)
+        cmd += " --print-ionbuffer";
+    if(ui->checkBox_print_pagetypeinfo->checkState() == Qt::Checked)
+        cmd += " --print-pagetypeinfo";
+    if(ui->checkBox_print_memory_info->checkState() == Qt::Checked)
+        cmd += " --print-memory-info";
+    if(ui->checkBox_print_pagetracking->checkState() == Qt::Checked)
+        cmd += " --print-pagetracking";
+    if(ui->checkBox_print_memstat->checkState() == Qt::Checked)
+        cmd += " --print-memstat";
+    if(ui->checkBox_print_lsof->checkState() == Qt::Checked)
+        cmd += " --print-lsof";
+    if(ui->checkBox_slabinfo->checkState() == Qt::Checked)
+        cmd += " --slabinfo";
+    if(ui->checkBox_cpr3_info->checkState() == Qt::Checked)
+        cmd += " --cpr3-info";
+    if(ui->checkBox_print_vmalloc->checkState() == Qt::Checked)
+        cmd += " --print-vmalloc";
+    if(ui->checkBox_dtb->checkState() == Qt::Checked)
+        cmd += " --dtb";
+    if(ui->checkBox_print_tasks->checkState() == Qt::Checked)
+        cmd += " --print-tasks";
+    if(ui->checkBox_dump_ftrace->checkState() == Qt::Checked)
+        cmd += " --dump-ftrace";
+    if(ui->checkBox_sched_info->checkState() == Qt::Checked)
+        cmd += " --sched-info";
+    if(ui->checkBox_print_irqs->checkState() == Qt::Checked)
+        cmd += " --print-irqs";
+    if(ui->checkBox_print_workqueues->checkState() == Qt::Checked)
+        cmd += " --print-workqueues";
+    if(ui->checkBox_print_kconfig->checkState() == Qt::Checked)
+        cmd += " --print-kconfig";
+    if(ui->checkBox_print_rtb->checkState() == Qt::Checked)
+        cmd += " --print-rtb";
+    if(ui->checkBox_timer_list->checkState() == Qt::Checked)
+        cmd += " --timer-list";
+    if(ui->checkBox_print_tasks_timestamps->checkState() == Qt::Checked)
+        cmd += " --print-tasks-timestamps";
+    if(ui->checkBox_print_runqueues->checkState() == Qt::Checked)
+        cmd += " --print-runqueues";
+    if(ui->checkBox_print_softirq_stat->checkState() == Qt::Checked)
+        cmd += " --print-softirq-stat";
+    if(ui->checkBox_print_iommu_pg_tables->checkState() == Qt::Checked)
+        cmd += " --print-iommu-pg-tables";
+    if(ui->checkBox_print_filetracking->checkState() == Qt::Checked)
+        cmd += " --print-filetracking";
+    if(ui->checkBox_logcat->checkState() == Qt::Checked)
+        cmd += " --logcat";
+
+    cmd += " -o " + outputPath;
+
+    qDebug()<<"ramparser cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::ramparserCmd()";
+    return cmd;
+}
+
+QString MainWindow::module_symbolCmd()
+{
+    QString cmd = "py -3 " + rdetPath + "\\lib\\support_scripts\\module_symbol\\module_symbol.py ";
+    qDebug()<<"Inside QString MainWindow::module_symbolCmd()";
+    cmd += dumpsPath + " " + appsPath + "\\vmlinux --target " + targetName;
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::module_symbolCmd()";
+    return cmd;
+}
+
+QString MainWindow::platform_infoCmd()
+{
+    QString cmd = "py -3 " + rdetPath + "\\lib\\support_scripts\\platform_info\\platform_info.py ";
+    qDebug()<<"Inside QString MainWindow::platform_infoCmd()";
+    cmd += dumpsPath + " -o " + outputPath + " --target " + targetName;
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::platform_infoCmd()";
+    return cmd;
+}
+
+QString MainWindow::dcc_wrapperCmd()
+{
+    QString cmd = "py -3 " + rdetPath + "\\lib\\support_scripts\\dcc_parser\\dcc_wrapper.py ";
+    qDebug()<<"Inside QString MainWindow::dcc_wrapperCmd()";
+    cmd += dumpsPath + " --target " + targetName + " -o " + outputPath;
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::dcc_wrapperCmd()";
+    return cmd;
+}
+
+QString MainWindow::task_statsCmd()
+{
+    QString cmd = "py -3 " + rdetPath + "\\lib\\support_scripts\\task_stats\\task_stats.py ";
+    qDebug()<<"Inside QString MainWindow::task_statsCmd()";
+    cmd += outputPath;
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::task_statsCmd()";
+    return cmd;
+}
+
+QString MainWindow::ddrCookiesCmd()
+{
+    QString cmd = "py -3 " + rdetPath + "\\lib\\support_scripts\\DDRCookies\\DDRCookies.py ";
+    qDebug()<<"Inside QString MainWindow::ddrCookiesCmd()";
+    cmd += dumpsPath + " --output " + outputPath;
+    cmd += " -- target " + targetName;
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::ddrCookiesCmd()";
+    return cmd;
+}
+
+QString MainWindow::excessive_loggingCmd()
+{
+    QString cmd = "py -3 " + rdetPath + "\\lib\\support_scripts\\excessive_logging\\excessive_log_detection.py ";
+    qDebug()<<"Inside QString MainWindow::excessive_loggingCmd()";
+    cmd += outputPath;
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::excessive_loggingCmd()";
+    return cmd;
+}
+
+QString MainWindow::rdet_html_genCmd()
+{
+    QString cmd = "py -3 " + rdetPath + "\\lib\\support_scripts\\rdet_html_gen\\rdet_html_gen.py ";
+    qDebug()<<"Inside QString MainWindow::rdet_html_genCmd()";
+    cmd += outputPath + " RDET_Report";
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::rdet_html_genCmd()";
+    return cmd;
+}
+
+QString MainWindow::getHardwareName(QString targetName)
+{
+    QString filePath = rdetPath + "\\lib\\common_subscripts\\cafname\\caf.json";
+    QString hwName;
+    qDebug()<<"Inside QString MainWindow::getHardwareName()";
+
+    QFile file(filePath);
+    if(!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        qDebug()<<"unable to open caf.json file. path = "<<filePath;
+        return hwName;
+    }
+    QString temp = file.readAll();
+    file.close();
+    QJsonDocument doc = QJsonDocument::fromJson(temp.toUtf8());
+//    qDebug()<<doc;
+    QJsonObject obj = doc.object();
+    hwName = obj.value(targetName.toLower()).toString();
+    qDebug()<<"Value = "<<hwName;
+    qDebug()<<"Exiting QString MainWindow::getHardwareName()";
+    return hwName;
 }

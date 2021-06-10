@@ -299,7 +299,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QCheckBox" name="checkBox_sym_path">
+      <widget class="QCheckBox" name="checkBox_dtb">
        <property name="font">
         <font>
          <family>Calibri</family>
@@ -307,7 +307,7 @@
         </font>
        </property>
        <property name="text">
-        <string>sym_path</string>
+        <string>dtb</string>
        </property>
       </widget>
      </item>
@@ -833,7 +833,7 @@
      <enum>Qt::Vertical</enum>
     </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>280</x>
@@ -1170,7 +1170,7 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>740</x>
