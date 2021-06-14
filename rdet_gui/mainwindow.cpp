@@ -66,10 +66,11 @@ void MainWindow::runCommand(QString cmd)
 {
     qDebug()<<"Inside void MainWindow::runCommand(QString cmd)";
     logHandler.insertLine("\n\nExecuting the subscript with command " +cmd);
-    cmd += " > log.txt";
+    cmd += " > ";
+    cmd += outputPath + "\\temp.txt";
     qDebug()<<"cmd to run = "<<cmd;
     system(cmd.toUtf8().data());
-    logHandler.insertFile("log.txt");
+    logHandler.insertFile(outputPath + "\\temp.txt");
     qDebug()<<"Exiting void MainWindow::runCommand(QString cmd)";
 }
 
@@ -141,6 +142,7 @@ void MainWindow::on_pushButtonSubmit_clicked()
 
 void MainWindow::updatingMetaInfoToLogsFile()
 {
+    qDebug()<<"Inside void MainWindow::updatingMetaInfoToLogsFile()";
     logHandler.setLogFilePath(outputPath);
     logHandler.formatLogFile();
     logHandler.insertLine("Input RAM dump directory: " + dumpsPath);
@@ -161,10 +163,12 @@ void MainWindow::updatingMetaInfoToLogsFile()
         logHandler.insertLine("RPM Path: " +rpmFilePath + rpmFileName);
     logHandler.insertLine("");
     logHandler.insertLine("");
+    qDebug()<<"Exiting void MainWindow::updatingMetaInfoToLogsFile()";
 }
 
 void MainWindow::runSubScripts()
 {
+    qDebug()<<"Inside void MainWindow::runSubScripts()";
     QString cmd;
     QString hardware = getHardwareName(targetName);
     if(hardware == "") {
@@ -208,6 +212,7 @@ void MainWindow::runSubScripts()
         cmd = rdet_html_genCmd();
         runCommand(cmd);
     }
+    qDebug()<<"Exiting void MainWindow::runSubScripts()";
 }
 
 void MainWindow::on_checkBox_ramparser_stateChanged(int arg1)

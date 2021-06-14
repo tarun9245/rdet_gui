@@ -55,7 +55,7 @@ private:
     QString qseeFileName;
     QString qseeFilePath;
     QString monFileName;
-    QString  monFilePath;
+    QString monFilePath;
     QString hypFileName;
     QString hypFilePath;
     QString aopFileName;
