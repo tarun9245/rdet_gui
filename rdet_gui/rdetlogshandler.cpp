@@ -50,7 +50,7 @@ void RdetLogsHandler::insertFile(QString fileToCopy)
     qDebug()<<"Inside void RdetLogsHandler::insertFile(QString fileToCopy)";
     QTextStream out(&file);
     QFile temp(fileToCopy);
-    if(!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+    if(!temp.open(QIODevice::ReadOnly | QIODevice::Text)) {
         qDebug()<<"Unable to open given file. "<<temp.fileName();
         return;
     }
