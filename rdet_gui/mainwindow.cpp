@@ -347,7 +347,7 @@ QString MainWindow::rdet_html_genCmd()
 {
     QString cmd = "py -3 " + rdetPath + "\\lib\\support_scripts\\rdet_html_gen\\rdet_html_gen.py ";
     qDebug()<<"Inside QString MainWindow::rdet_html_genCmd()";
-    cmd += outputPath + " RDET_Report";
+    cmd += outputPath;
     qDebug()<<"cmd = "<<cmd;
     qDebug()<<"Exiting QString MainWindow::rdet_html_genCmd()";
     return cmd;
