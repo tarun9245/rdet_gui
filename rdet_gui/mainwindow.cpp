@@ -135,11 +135,11 @@ void MainWindow::on_pushButtonSubmit_clicked()
     QString cmd;
     if(ui->checkBox_module_symbol->checkState() == Qt::Checked) {
         cmd = module_symbolCmd();
-        //runCommand(cmd);
+        runCommand(cmd);
     }
     if(ui->checkBox_ramparser->checkState() == Qt::Checked) {
         cmd = ramparserCmd(hardware);
-        //runCommand(cmd);
+        runCommand(cmd);
     }
     if(ui->checkBox_ramparser_svm->checkState() == Qt::Checked) {
         //cmd = ramparser_svmCmd();
@@ -147,26 +147,26 @@ void MainWindow::on_pushButtonSubmit_clicked()
     }
     if(ui->checkBox_dcc_wrapper->checkState() == Qt::Checked) {
         cmd = dcc_wrapperCmd();
-        //runCommand(cmd);
+        runCommand(cmd);
     }
     if(ui->checkBox_task_stats->checkState() == Qt::Checked) {
         cmd = task_statsCmd();
-        //runCommand(cmd);
+        runCommand(cmd);
     }
     if(ui->checkBox_DDRCookies->checkState() == Qt::Checked) {
         cmd = ddrCookiesCmd();
-        //runCommand(cmd);
+        runCommand(cmd);
     }
     if(ui->checkBox_read_power_collapse_cnt->checkState() == Qt::Checked) {
-        //runCommand(cmd);
+        runCommand(cmd);
     }
     if(ui->checkBox_excessive_logging->checkState() == Qt::Checked) {
         cmd = excessive_loggingCmd();
-        //runCommand(cmd);
+        runCommand(cmd);
     }
     if(ui->checkBox_Rdet_attachment->checkState() == Qt::Checked) {
         cmd = rdet_html_genCmd();
-        //runCommand(cmd);
+        runCommand(cmd);
     }
     //runCommand(cmd);
     qDebug()<<"Exiting void MainWindow::on_pushButtonSubmit_clicked()";
