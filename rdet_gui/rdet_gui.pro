@@ -28,11 +28,13 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
         metahandler.cpp \
+        rdetlogshandler.cpp \
         settings.cpp
 
 HEADERS += \
         mainwindow.h \
         metahandler.h \
+        rdetlogshandler.h \
         settings.h
 
 FORMS += \
