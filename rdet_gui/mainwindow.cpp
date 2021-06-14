@@ -63,9 +63,9 @@ QString MainWindow::getAppsPath()
 void MainWindow::runCommand(QString cmd)
 {
     qDebug()<<"Inside void MainWindow::runCommand(QString cmd)";
+    cmd += " > log.txt";
     qDebug()<<"cmd to run = "<<cmd;
     system(cmd.toUtf8().data());
-    system("pause>nil");
     qDebug()<<"Exiting void MainWindow::runCommand(QString cmd)";
 }
 
@@ -168,7 +168,6 @@ void MainWindow::on_pushButtonSubmit_clicked()
         cmd = rdet_html_genCmd();
         runCommand(cmd);
     }
-    //runCommand(cmd);
     qDebug()<<"Exiting void MainWindow::on_pushButtonSubmit_clicked()";
 }
 
