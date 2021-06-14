@@ -6,6 +6,7 @@
 #include "metahandler.h"
 #include <qjsonobject.h>
 #include <qjsondocument.h>
+#include "rdetlogshandler.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -16,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
     on_checkBox_ramparser_stateChanged(0);
 //    ui->pushButtonSettings->setIcon(QIcon("C:/Users/tarkum/Downloads/GitProject/rdet_gui/rdet_gui/settings_png.png"));
 //    ui->pushButtonSettings->setIconSize(QSize(50,50));
+
 }
 
 MainWindow::~MainWindow()
@@ -63,9 +65,11 @@ QString MainWindow::getAppsPath()
 void MainWindow::runCommand(QString cmd)
 {
     qDebug()<<"Inside void MainWindow::runCommand(QString cmd)";
+    logHandler.insertLine("\n\nExecuting the subscript with command " +cmd);
     cmd += " > log.txt";
     qDebug()<<"cmd to run = "<<cmd;
     system(cmd.toUtf8().data());
+    logHandler.insertFile("log.txt");
     qDebug()<<"Exiting void MainWindow::runCommand(QString cmd)";
 }
 
@@ -87,19 +91,8 @@ QString MainWindow::rdetCmd()
     return cmd;
 }
 
-void MainWindow::on_pushButtonSubmit_clicked()
+void MainWindow::readingMeta()
 {
-    qDebug()<<"Inside void MainWindow::on_pushButtonSubmit_clicked()";
-    rdetPath = setting->getRdetPath();
-    metaPath = ui->lineEditMetaPath->text().trimmed();
-    dumpsPath = ui->lineEditDumpPath->text().trimmed();
-    appsPath = ui->lineEditAppsPath->text().trimmed();
-    outputPath = dumpsPath;
-    if(metaPath == "" || dumpsPath == "") {
-        QMessageBox::warning(this,tr("Error"), tr("Dump or Meta location cannot be Empty!"));
-        return;
-    }
-
     metaHandler meta(metaPath);
     if(!meta.isValidMeta()) {
         QMessageBox::warning(this,tr("Error"), tr("Unable to open contents.xml file at given META location.."));
@@ -124,7 +117,55 @@ void MainWindow::on_pushButtonSubmit_clicked()
     aopFilePath = meta.getAopFilePath();
     rpmFileName = meta.getRpmFileName();
     rpmFilePath = meta.getRpmFilePath();
+}
 
+void MainWindow::on_pushButtonSubmit_clicked()
+{
+    qDebug()<<"Inside void MainWindow::on_pushButtonSubmit_clicked()";
+    rdetPath = setting->getRdetPath();
+    metaPath = ui->lineEditMetaPath->text().trimmed();
+    dumpsPath = ui->lineEditDumpPath->text().trimmed();
+    appsPath = ui->lineEditAppsPath->text().trimmed();
+    outputPath = dumpsPath;
+    if(metaPath == "" || dumpsPath == "") {
+        QMessageBox::warning(this,tr("Error"), tr("Dump or Meta location cannot be Empty!"));
+        return;
+    }
+
+    readingMeta();
+    updatingMetaInfoToLogsFile();
+    runSubScripts();
+    logHandler.save();
+    qDebug()<<"Exiting void MainWindow::on_pushButtonSubmit_clicked()";
+}
+
+void MainWindow::updatingMetaInfoToLogsFile()
+{
+    logHandler.setLogFilePath(outputPath);
+    logHandler.formatLogFile();
+    logHandler.insertLine("Input RAM dump directory: " + dumpsPath);
+    logHandler.insertLine("Output directory: " + outputPath);
+    logHandler.insertLine("META Build Location: " + metaPath);
+    logHandler.insertLine("Chip Name: " +targetName);
+    logHandler.insertLine("APPS Path: " + appsPath);
+    if(qseeFileName != "") {
+        logHandler.insertLine("QSEE ELF: " + qseeFilePath + qseeFileName);
+    }
+    if(monFileName != "")
+        logHandler.insertLine("MON ELF: "+ monFilePath + monFileName);
+    if(hypFileName != "")
+        logHandler.insertLine("HYP ELF: " + hypFilePath + hypFileName);
+    if(aopFileName != "")
+        logHandler.insertLine("AOP Path: " +aopFilePath + aopFileName);
+    if(rpmFileName != "")
+        logHandler.insertLine("RPM Path: " +rpmFilePath + rpmFileName);
+    logHandler.insertLine("");
+    logHandler.insertLine("");
+}
+
+void MainWindow::runSubScripts()
+{
+    QString cmd;
     QString hardware = getHardwareName(targetName);
     if(hardware == "") {
         QString msg = targetName + " Target Support is Not added to RDET.";
@@ -132,7 +173,6 @@ void MainWindow::on_pushButtonSubmit_clicked()
         return;
     }
 
-    QString cmd;
     if(ui->checkBox_module_symbol->checkState() == Qt::Checked) {
         cmd = module_symbolCmd();
         runCommand(cmd);
@@ -168,7 +208,6 @@ void MainWindow::on_pushButtonSubmit_clicked()
         cmd = rdet_html_genCmd();
         runCommand(cmd);
     }
-    qDebug()<<"Exiting void MainWindow::on_pushButtonSubmit_clicked()";
 }
 
 void MainWindow::on_checkBox_ramparser_stateChanged(int arg1)

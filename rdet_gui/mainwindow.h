@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include "settings.h"
+#include "rdetlogshandler.h"
+
 namespace Ui {
 class MainWindow;
 }
@@ -31,7 +33,9 @@ public:
     QString ramparser_svmCmd();
     QString ddrCookiesCmd();
     QString rdet_html_genCmd();
-
+    void readingMeta();
+    void runSubScripts();
+    void updatingMetaInfoToLogsFile();
 private slots:
     void on_pushButtonSettings_clicked();
 
@@ -42,16 +46,22 @@ private slots:
 private:
     Ui::MainWindow *ui;
     settings *setting;
+    RdetLogsHandler logHandler;
     QString rdetPath;
     QString metaPath;
     QString dumpsPath, outputPath;
     QString appsPath;
     QString options, targetName;
-    QString qseeFileName,qseeFilePath;
-    QString monFileName, monFilePath;
-    QString hypFileName, hypFilePath;
-    QString aopFileName, aopFilePath;
-    QString rpmFileName, rpmFilePath;
+    QString qseeFileName;
+    QString qseeFilePath;
+    QString monFileName;
+    QString  monFilePath;
+    QString hypFileName;
+    QString hypFilePath;
+    QString aopFileName;
+    QString aopFilePath;
+    QString rpmFileName;
+    QString rpmFilePath;
 };
 
 #endif // MAINWINDOW_H

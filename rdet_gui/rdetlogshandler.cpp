@@ -28,6 +28,8 @@ void RdetLogsHandler:: setLogFilePath(QString path)
 
 void RdetLogsHandler::save()
 {
+    insertLine("\n===== END RDET Logs ====\n");
+
     file.close();
 }
 
@@ -56,7 +58,7 @@ void RdetLogsHandler::insertFile(QString fileToCopy)
 void RdetLogsHandler::formatLogFile()
 {
     QTextStream out(&file);
-    out<<"\n======Begin RDET Logs=====\n";
+    out<<"\n====== Begin RDET Logs =====\n";
     QString date = QDate::currentDate().toString();
     QString time = QTime::currentTime().toString();
     QString host = QHostInfo::localHostName();
