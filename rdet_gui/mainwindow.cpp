@@ -464,3 +464,17 @@ QString MainWindow::scandump_parser()
     qDebug()<<"Exiting QString MainWindow::scandump_parser()";
     return cmd;
 }
+
+QString MainWindow::instr_fetcher()
+{
+    QString cmd = "py -3 " + rdetPath + "\\lib\\support_scripts\\instr_fetcher\\instr_fetcher.py ";
+    qDebug()<<"Inside QString MainWindow::instr_fetcher()";
+    cmd += dumpsPath + " --o " + outputPath;
+    cmd += " " + qseeFilePath + qseeFileName;
+    cmd += " " + monFilePath + monFileName;
+    cmd += " " + hypFilePath + hypFileName;
+    cmd += " " + appsPath + "\\vmlinux";
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::instr_fetcher()";
+    return cmd;
+}
