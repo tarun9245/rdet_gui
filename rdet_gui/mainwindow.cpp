@@ -453,3 +453,14 @@ QString MainWindow::tme_debugging()
     qDebug()<<"Exiting QString MainWindow::tme_debugging()";
     return cmd;
 }
+
+QString MainWindow::scandump_parser()
+{
+    QString cmd = "py -3 " + rdetPath + "\\lib\\support_scripts\\scandump\\scandump_parser_helper.py ";
+    qDebug()<<"Inside QString MainWindow::scandump_parser()";
+    cmd += dumpsPath + " -o " + outputPath;
+    cmd += " --target " + targetName;
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::scandump_parser()";
+    return cmd;
+}

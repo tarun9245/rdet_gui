@@ -36,6 +36,7 @@ public:
     QString read_power_collapse_cnt();
     QString tme_parser();
     QString tme_debugging();
+    QString scandump_parser();
     void readingMeta();
     void runSubScripts();
     void updatingMetaInfoToLogsFile();
