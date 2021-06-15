@@ -501,5 +501,13 @@ QString MainWindow::smmu_fault_decoder()
     return cmd;
 }
 
-
+QString MainWindow::parse_panic_regs()
+{
+    QString cmd = "py -3 " + rdetPath + "\\lib\\support_scripts\\parse_panic_regs\\create_panic_regs_cmm.py ";
+    qDebug()<<"Inside QString MainWindow::smmu_fault_decoder()";
+    cmd += dumpsPath + " " + outputPath;
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::smmu_fault_decoder()";
+    return cmd;
+}
 

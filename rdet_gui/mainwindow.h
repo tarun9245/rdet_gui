@@ -40,6 +40,7 @@ public:
     QString instr_fetcher();
     QString bus_error_decoder();
     QString smmu_fault_decoder();
+    QString parse_panic_regs();
     void readingMeta();
     void runSubScripts();
     void updatingMetaInfoToLogsFile();
