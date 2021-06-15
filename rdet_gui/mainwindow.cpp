@@ -564,6 +564,15 @@ QString MainWindow::lockup_parser()
     return cmd;
 }
 
+QString MainWindow::rtb_schedstat()
+{
+    QString cmd = "py -3 " + rdetPath + "\\lib\\support_scripts\\RTB_Parser\\rtb_schedstat.py ";
+    qDebug()<<"Inside QString MainWindow::rtb_schedstat()";
+    cmd += outputPath + " --top=20";
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::rtb_schedstat()";
+    return cmd;
+}
 
 
 

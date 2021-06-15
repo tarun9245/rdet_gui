@@ -46,6 +46,7 @@ public:
     QString ion_buf_analyzer();
     QString wa_log();
     QString lockup_parser();
+    QString rtb_schedstat();
     void readingMeta();
     void runSubScripts();
     void updatingMetaInfoToLogsFile();
