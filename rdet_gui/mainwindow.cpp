@@ -642,3 +642,15 @@ QString MainWindow::tz_parser()
     qDebug()<<"Exiting QString MainWindow::tz_parser()";
     return cmd;
 }
+
+QString MainWindow::aop_parser()
+{
+    QString cmd = "py -3 " + rdetPath + "\\lib\\support_scripts\\aop_parser\\aop_parser.py ";
+    qDebug()<<"Inside QString MainWindow::aop_parser()";
+    cmd += "--aop " + aopFilePath + aopFileName;
+    cmd += " -i " + dumpsPath;
+    cmd += " --everything -o " + outputPath;
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::aop_parser()";
+    return cmd;
+}

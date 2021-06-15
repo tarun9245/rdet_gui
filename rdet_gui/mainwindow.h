@@ -53,6 +53,7 @@ public:
     QString smmu_test_bus_decoding();
     QString memory_summarize();
     QString tz_parser();
+    QString aop_parser();
     void readingMeta();
     void runSubScripts();
     void updatingMetaInfoToLogsFile();
