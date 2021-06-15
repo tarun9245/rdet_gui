@@ -47,6 +47,8 @@ public:
     QString wa_log();
     QString lockup_parser();
     QString rtb_schedstat();
+    QString memory_corruption();
+    QString iommu_pagetable();
     void readingMeta();
     void runSubScripts();
     void updatingMetaInfoToLogsFile();
@@ -65,7 +67,7 @@ private:
     QString metaPath;
     QString dumpsPath, outputPath;
     QString appsPath, tzPath;
-    QString options, targetName;
+    QString options, targetName,hardware;
     QString qseeFileName;
     QString qseeFilePath;
     QString monFileName;

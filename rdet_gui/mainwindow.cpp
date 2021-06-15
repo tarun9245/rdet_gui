@@ -574,6 +574,27 @@ QString MainWindow::rtb_schedstat()
     return cmd;
 }
 
+QString MainWindow::memory_corruption()
+{
+    QString cmd = "py -3 " + rdetPath + "\\lib\\support_scripts\\memory_corruption\\memory_corruption.py ";
+    qDebug()<<"Inside QString MainWindow::memory_corruption()";
+    cmd += dumpsPath + " --target " + hardware;
+    cmd += " " + appsPath + "\\vmlinux -o " + outputPath;
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::memory_corruption()";
+    return cmd;
+}
+
+QString MainWindow::iommu_pagetable()
+{
+    QString cmd = "py -3 " + rdetPath + "\\lib\\support_scripts\\iommu_pagetable\\iommu_pagetable.py ";
+    qDebug()<<"Inside QString MainWindow::iommu_pagetable()";
+    cmd += dumpsPath + " --target " + hardware;
+    cmd += " " + appsPath + "\\vmlinux -o " + outputPath;
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::iommu_pagetable()";
+    return cmd;
+}
 
 
 
