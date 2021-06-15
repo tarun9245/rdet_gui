@@ -596,6 +596,15 @@ QString MainWindow::iommu_pagetable()
     return cmd;
 }
 
+QString MainWindow::vidc_parse()
+{
+    QString cmd = "py -3 " + rdetPath + "\\lib\\support_scripts\\vidc_parse\\vidc_parse.py ";
+    qDebug()<<"Inside QString MainWindow::vidc_parse()";
+    cmd += dumpsPath + " -o " + outputPath;
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::vidc_parse()";
+    return cmd;
+}
 
 
 

@@ -49,6 +49,7 @@ public:
     QString rtb_schedstat();
     QString memory_corruption();
     QString iommu_pagetable();
+    QString vidc_parse();
     void readingMeta();
     void runSubScripts();
     void updatingMetaInfoToLogsFile();
