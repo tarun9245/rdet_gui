@@ -478,3 +478,19 @@ QString MainWindow::instr_fetcher()
     qDebug()<<"Exiting QString MainWindow::instr_fetcher()";
     return cmd;
 }
+
+QString MainWindow::bus_error_decoder()
+{
+    QString cmd = "py -3 " + rdetPath + "\\lib\\support_scripts\\bus_error_decoders\\bus_error_decoder.py ";
+    qDebug()<<"Inside QString MainWindow::bus_error_decoder()";
+    cmd += dumpsPath + " --o " + outputPath;
+    cmd += " --target " + targetName;
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::bus_error_decoder()";
+    return cmd;
+}
+
+
+
+
+

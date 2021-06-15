@@ -38,6 +38,7 @@ public:
     QString tme_debugging();
     QString scandump_parser();
     QString instr_fetcher();
+    QString bus_error_decoder();
     void readingMeta();
     void runSubScripts();
     void updatingMetaInfoToLogsFile();
