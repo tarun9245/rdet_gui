@@ -490,7 +490,16 @@ QString MainWindow::bus_error_decoder()
     return cmd;
 }
 
-
+QString MainWindow::smmu_fault_decoder()
+{
+    QString cmd = "py -3 " + rdetPath + "\\lib\\support_scripts\\bus_error_decoders\\smmu_fault_decoder.py ";
+    qDebug()<<"Inside QString MainWindow::smmu_fault_decoder()";
+    cmd += outputPath;
+    cmd += " --target " + targetName;
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::smmu_fault_decoder()";
+    return cmd;
+}
 
 
 
