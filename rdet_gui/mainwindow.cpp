@@ -606,5 +606,39 @@ QString MainWindow::vidc_parse()
     return cmd;
 }
 
+QString MainWindow::smmu_test_bus_decoding()
+{
+    QString cmd = "py -3 " + rdetPath + "\\lib\\support_scripts\\bus_error_decoders\\smmu_test_bus_decoding.py ";
+    qDebug()<<"Inside QString MainWindow::smmu_test_bus_decoding()";
+    cmd += outputPath;
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::smmu_test_bus_decoding()";
+    return cmd;
+}
 
+QString MainWindow::memory_summarize()
+{
+    QString cmd = "py -3 " + rdetPath + "\\lib\\support_scripts\\memory_summarize\\memory_summarize.py ";
+    qDebug()<<"Inside QString MainWindow::memory_summarize()";
+    cmd += dumpsPath + " " + outputPath;
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::memory_summarize()";
+    return cmd;
+}
 
+QString MainWindow::tz_parser()
+{
+    QString cmd = "py -3 " + rdetPath + "\\lib\\support_scripts\\tz_parser\\tz_parser.py ";
+    qDebug()<<"Inside QString MainWindow::tz_parser()";
+    cmd += "--vmlinux " + appsPath + "\\vmlinux";
+    cmd += " --qsee " + qseeFilePath + qseeFileName;
+    cmd += " --mon " + monFilePath + monFileName;
+    cmd += " --hyp " + hypFilePath + hypFileName;
+    cmd += " --auto-dump " + dumpsPath;
+    cmd += " --force-hardware " + hardware;
+    cmd += " --everything -o " + outputPath;
+    cmd += " --reduceddump N";
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::tz_parser()";
+    return cmd;
+}

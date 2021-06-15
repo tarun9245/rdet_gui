@@ -50,6 +50,9 @@ public:
     QString memory_corruption();
     QString iommu_pagetable();
     QString vidc_parse();
+    QString smmu_test_bus_decoding();
+    QString memory_summarize();
+    QString tz_parser();
     void readingMeta();
     void runSubScripts();
     void updatingMetaInfoToLogsFile();
