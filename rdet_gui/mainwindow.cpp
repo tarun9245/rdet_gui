@@ -504,10 +504,25 @@ QString MainWindow::smmu_fault_decoder()
 QString MainWindow::parse_panic_regs()
 {
     QString cmd = "py -3 " + rdetPath + "\\lib\\support_scripts\\parse_panic_regs\\create_panic_regs_cmm.py ";
-    qDebug()<<"Inside QString MainWindow::smmu_fault_decoder()";
+    qDebug()<<"Inside QString MainWindow::parse_panic_regs()";
     cmd += dumpsPath + " " + outputPath;
     qDebug()<<"cmd = "<<cmd;
-    qDebug()<<"Exiting QString MainWindow::smmu_fault_decoder()";
+    qDebug()<<"Exiting QString MainWindow::parse_panic_regs()";
     return cmd;
 }
+
+QString MainWindow::edit_t32_shortcut()
+{
+    QString cmd = "py -3 " + rdetPath + "\\lib\\support_scripts\\edit_t32_shortcut.py ";
+    qDebug()<<"Inside QString MainWindow::edit_t32_shortcut()";
+    cmd += outputPath;
+    cmd += " " + qseeFilePath + qseeFileName;
+    cmd += " " + monFilePath + monFileName;
+    cmd += " " + hypFilePath + hypFileName;
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::edit_t32_shortcut()";
+    return cmd;
+}
+
+
 

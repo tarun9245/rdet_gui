@@ -41,6 +41,7 @@ public:
     QString bus_error_decoder();
     QString smmu_fault_decoder();
     QString parse_panic_regs();
+    QString edit_t32_shortcut();
     void readingMeta();
     void runSubScripts();
     void updatingMetaInfoToLogsFile();
