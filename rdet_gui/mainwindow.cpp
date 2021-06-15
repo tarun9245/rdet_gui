@@ -534,5 +534,15 @@ QString MainWindow::watchdog_parser()
     return cmd;
 }
 
+QString MainWindow::ion_buf_analyzer()
+{
+    QString cmd = "py -3 " + rdetPath + "\\lib\\support_scripts\\IONMem_parser\\ion_buf_analyzer.py ";
+    qDebug()<<"Inside QString MainWindow::ion_buf_analyzer()";
+    cmd += outputPath;
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::ion_buf_analyzer()";
+    return cmd;
+}
+
 
 

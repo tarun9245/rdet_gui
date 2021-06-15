@@ -43,6 +43,7 @@ public:
     QString parse_panic_regs();
     QString edit_t32_shortcut();
     QString watchdog_parser();
+    QString ion_buf_analyzer();
     void readingMeta();
     void runSubScripts();
     void updatingMetaInfoToLogsFile();
