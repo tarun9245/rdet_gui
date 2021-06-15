@@ -654,3 +654,38 @@ QString MainWindow::aop_parser()
     qDebug()<<"Exiting QString MainWindow::aop_parser()";
     return cmd;
 }
+
+QString MainWindow::cpucp_parser()
+{
+    QString cmd = "py -3 " + rdetPath + "\\lib\\support_scripts\\cpucp_parser\\cpucp_parser.py ";
+    qDebug()<<"Inside QString MainWindow::cpucp_parser()";
+    cmd += "-i " + dumpsPath;
+    cmd += " --meta " + metaPath;
+    cmd += " --everything -o " + outputPath;
+    cmd += " --target " + targetName;
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::cpucp_parser()";
+    return cmd;
+}
+
+QString MainWindow::aop_script()
+{
+    QString cmd = "py -3 " + rdetPath + "\\lib\\support_scripts\\aop_files_gen\\aop_script.py ";
+    qDebug()<<"Inside QString MainWindow::aop_script()";
+    cmd += dumpsPath + " --o " + outputPath;
+    cmd += " --aop " + aopDir;
+    cmd += " --target " + targetName;
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::aop_script()";
+    return cmd;
+}
+
+QString MainWindow::merge_logs()
+{
+    QString cmd = "py -3 " + rdetPath + "\\lib\\support_scripts\\merge_logs\\merge_logs.py ";
+    qDebug()<<"Inside QString MainWindow::merge_logs()";
+    cmd += outputPath;
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::merge_logs()";
+    return cmd;
+}

@@ -54,6 +54,9 @@ public:
     QString memory_summarize();
     QString tz_parser();
     QString aop_parser();
+    QString cpucp_parser();
+    QString aop_script();
+    QString merge_logs();
     void readingMeta();
     void runSubScripts();
     void updatingMetaInfoToLogsFile();
@@ -83,6 +86,7 @@ private:
     QString aopFilePath;
     QString rpmFileName;
     QString rpmFilePath;
+    QString aopDir;
 };
 
 #endif // MAINWINDOW_H
