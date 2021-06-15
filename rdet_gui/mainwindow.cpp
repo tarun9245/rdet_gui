@@ -417,3 +417,16 @@ QString MainWindow::getHardwareName(QString targetName)
     qDebug()<<"Exiting QString MainWindow::getHardwareName()";
     return hwName;
 }
+
+QString MainWindow::read_power_collapse_cnt()
+{
+    QString cmd = "py -3 " + rdetPath + "\\lib\\support_scripts\\read_power_collapse_cnt\\read_power_collapse_cnt.py ";
+    qDebug()<<"Inside QString MainWindow::read_power_collapse_cnt()";
+    cmd += dumpsPath + " --tz " + tzPath;
+    cmd += " -- target " + targetName;
+    cmd += " --outdir " + outputPath;
+    cmd += " --reduceddump N";
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::read_power_collapse_cnt()";
+    return cmd;
+}

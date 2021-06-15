@@ -33,6 +33,7 @@ public:
     QString ramparser_svmCmd();
     QString ddrCookiesCmd();
     QString rdet_html_genCmd();
+    QString read_power_collapse_cnt();
     void readingMeta();
     void runSubScripts();
     void updatingMetaInfoToLogsFile();
@@ -50,7 +51,7 @@ private:
     QString rdetPath;
     QString metaPath;
     QString dumpsPath, outputPath;
-    QString appsPath;
+    QString appsPath, tzPath;
     QString options, targetName;
     QString qseeFileName;
     QString qseeFilePath;
