@@ -524,5 +524,15 @@ QString MainWindow::edit_t32_shortcut()
     return cmd;
 }
 
+QString MainWindow::watchdog_parser()
+{
+    QString cmd = "py -3 " + rdetPath + "\\lib\\support_scripts\\watchdog_parser\\watchdog.py ";
+    qDebug()<<"Inside QString MainWindow::watchdog_parser()";
+    cmd += outputPath;
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::watchdog_parser()";
+    return cmd;
+}
+
 
 
