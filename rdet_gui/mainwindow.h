@@ -35,6 +35,7 @@ public:
     QString rdet_html_genCmd();
     QString read_power_collapse_cnt();
     QString tme_parser();
+    QString tme_debugging();
     void readingMeta();
     void runSubScripts();
     void updatingMetaInfoToLogsFile();

@@ -442,3 +442,14 @@ QString MainWindow::tme_parser()
     qDebug()<<"Exiting QString MainWindow::tme_parser()";
     return cmd;
 }
+
+QString MainWindow::tme_debugging()
+{
+    QString cmd = "py -3 " + rdetPath + "\\lib\\support_scripts\\tme_parser\\tme_debugging.py ";
+    qDebug()<<"Inside QString MainWindow::tme_debugging()";
+    cmd += dumpsPath + " -o " + outputPath;
+    cmd += " --target " + targetName;
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::tme_debugging()";
+    return cmd;
+}
