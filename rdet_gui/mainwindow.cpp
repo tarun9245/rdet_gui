@@ -423,10 +423,22 @@ QString MainWindow::read_power_collapse_cnt()
     QString cmd = "py -3 " + rdetPath + "\\lib\\support_scripts\\read_power_collapse_cnt\\read_power_collapse_cnt.py ";
     qDebug()<<"Inside QString MainWindow::read_power_collapse_cnt()";
     cmd += dumpsPath + " --tz " + tzPath;
-    cmd += " -- target " + targetName;
+    cmd += " --target " + targetName;
     cmd += " --outdir " + outputPath;
     cmd += " --reduceddump N";
     qDebug()<<"cmd = "<<cmd;
     qDebug()<<"Exiting QString MainWindow::read_power_collapse_cnt()";
+    return cmd;
+}
+
+QString MainWindow::tme_parser()
+{
+    QString cmd = "py -3 " + rdetPath + "\\lib\\support_scripts\\tme_parser\\tme_parser.py ";
+    qDebug()<<"Inside QString MainWindow::tme_parser()";
+    cmd += "-a " + dumpsPath + " --meta " + metaPath;
+    cmd += " --everything -o " + outputPath;
+    cmd += " --target " + targetName;
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::tme_parser()";
     return cmd;
 }
