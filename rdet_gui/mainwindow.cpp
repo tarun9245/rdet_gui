@@ -118,6 +118,8 @@ void MainWindow::readingMeta()
     aopFilePath = meta.getAopFilePath();
     rpmFileName = meta.getRpmFileName();
     rpmFilePath = meta.getRpmFilePath();
+    tzPath = meta.getTzPath();
+    //aopDir = meta.getAopDir();
 }
 
 void MainWindow::on_pushButtonSubmit_clicked()
@@ -170,7 +172,7 @@ void MainWindow::runSubScripts()
 {
     qDebug()<<"Inside void MainWindow::runSubScripts()";
     QString cmd;
-    QString hardware = getHardwareName(targetName);
+    hardware = getHardwareName(targetName);
     if(hardware == "") {
         QString msg = targetName + " Target Support is Not added to RDET.";
         QMessageBox::warning(this,tr("Error"), tr(msg.toUtf8().constData()));
