@@ -44,6 +44,8 @@ public:
     QString edit_t32_shortcut();
     QString watchdog_parser();
     QString ion_buf_analyzer();
+    QString wa_log();
+    QString lockup_parser();
     void readingMeta();
     void runSubScripts();
     void updatingMetaInfoToLogsFile();

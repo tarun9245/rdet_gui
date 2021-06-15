@@ -544,5 +544,28 @@ QString MainWindow::ion_buf_analyzer()
     return cmd;
 }
 
+QString MainWindow::wa_log()
+{
+    QString cmd = "py -3 " + rdetPath + "\\lib\\support_scripts\\wa_log\\wa_log.pl ";
+    qDebug()<<"Inside QString MainWindow::wa_log()";
+    cmd += dumpsPath;
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::wa_log()";
+    return cmd;
+}
+
+QString MainWindow::lockup_parser()
+{
+    QString cmd = "py -3 " + rdetPath + "\\lib\\support_scripts\\lockup_parser\\lockup.py ";
+    qDebug()<<"Inside QString MainWindow::lockup_parser()";
+    cmd += dumpsPath + " -o " + outputPath;
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::lockup_parser()";
+    return cmd;
+}
+
+
+
+
 
 
