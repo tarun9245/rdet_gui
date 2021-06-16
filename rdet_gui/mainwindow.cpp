@@ -859,3 +859,36 @@ QString MainWindow::system_parameters_wrapper()
     qDebug()<<"Exiting QString MainWindow::system_parameters_wrapper()";
     return cmd;
 }
+
+QString MainWindow::dcc_gladiator_parser_v2()
+{
+    QString cmd = "py -3 " + rdetPath + "\\extensions\\support_scripts\\dcc_gladiator_parser\\dcc_gladiator_parser_v2.py ";
+    qDebug()<<"Inside QString MainWindow::dcc_gladiator_parser_v2()";
+    cmd += outputPath;
+    cmd += " --target " + targetName;
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::dcc_gladiator_parser_v2()";
+    return cmd;
+}
+
+QString MainWindow::ddr_debugging()
+{
+    QString cmd = "py -3 " + rdetPath + "\\extensions\\support_scripts\\ddr_debugging\\ddr_debugging.py ";
+    qDebug()<<"Inside QString MainWindow::ddr_debugging()";
+    cmd += outputPath;
+    cmd += " --target " + targetName;
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::ddr_debugging()";
+    return cmd;
+}
+
+QString MainWindow::ddr_process_dumps()
+{
+    QString cmd = "py -3 " + rdetPath + "\\extensions\\support_scripts\\DDR_process_dumps\\ddr_process_dumps_warpper.py ";
+    qDebug()<<"Inside QString MainWindow::ddr_process_dumps()";
+    cmd += outputPath;
+    cmd += " --target " + targetName;
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::ddr_process_dumps()";
+    return cmd;
+}

@@ -72,6 +72,9 @@ public:
     QString register_dump_parser();
     QString cpuss_dump_parser();
     QString system_parameters_wrapper();
+    QString dcc_gladiator_parser_v2();
+    QString ddr_debugging();
+    QString ddr_process_dumps();
     void readingMeta();
     void runSubScripts();
     void updatingMetaInfoToLogsFile();
