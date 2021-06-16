@@ -165,7 +165,7 @@ void MainWindow::runSubScripts()
     lib->setdumpsPath(&dumpsPath);
     lib->setAppsPath(&appsPath);
     lib->setOutputPath(&outputPath);
-
+    lib->setHardware(&hardware);
     if(ui->checkBox_module_symbol->checkState() == Qt::Checked) {
         cmd = lib->module_symbol();
         runCommand(cmd);
