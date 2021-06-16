@@ -892,3 +892,37 @@ QString MainWindow::ddr_process_dumps()
     qDebug()<<"Exiting QString MainWindow::ddr_process_dumps()";
     return cmd;
 }
+
+QString MainWindow::sensein_noc()
+{
+    QString cmd = "py -3 " + rdetPath + "\\extensions\\support_scripts\\sensein_noc\\sensein_noc.py ";
+    qDebug()<<"Inside QString MainWindow::sensein_noc()";
+    cmd += outputPath;
+    cmd += " --target " + targetName;
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::sensein_noc()";
+    return cmd;
+}
+
+QString MainWindow::shlog_parser()
+{
+    QString cmd = "py -3 " + rdetPath + "\\extensions\\support_scripts\\qtf_parser\\shlog_parser.py ";
+    qDebug()<<"Inside QString MainWindow::shlog_parser()";
+    cmd += " --input " + dumpsPath;
+    cmd += " --output " + outputPath;
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::shlog_parser()";
+    return cmd;
+}
+
+QString MainWindow::noc_decode_dcc()
+{
+    QString cmd = "py -3 " + rdetPath + "\\extensions\\support_scripts\\noc_decode_dcc\\noc_decode_dcc.py ";
+    qDebug()<<"Inside QString MainWindow::noc_decode_dcc()";
+    cmd += " --input " + dumpsPath;
+    cmd += " --output " + outputPath;
+    cmd += " --target " + targetName;
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::noc_decode_dcc()";
+    return cmd;
+}

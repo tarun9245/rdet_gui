@@ -66,6 +66,7 @@ public:
     QString consolidated_core_summary();
     QString issue_signature_detector();
     QString lpm_merge();
+/// Extension functions ///
     QString run_qtf();
     QString dcc_wrapper();
     QString delete_qtf_json();
@@ -75,6 +76,9 @@ public:
     QString dcc_gladiator_parser_v2();
     QString ddr_debugging();
     QString ddr_process_dumps();
+    QString sensein_noc();
+    QString shlog_parser();
+    QString noc_decode_dcc();
     void readingMeta();
     void runSubScripts();
     void updatingMetaInfoToLogsFile();
