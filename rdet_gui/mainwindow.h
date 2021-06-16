@@ -82,6 +82,9 @@ public:
     QString cxttable_decode();
     QString qtf_parser();
     QString qtf_signature();
+    QString logcat_parser();
+    QString task_state_parser();
+    QString tlb_dump_parser();
     void readingMeta();
     void runSubScripts();
     void updatingMetaInfoToLogsFile();

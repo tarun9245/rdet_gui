@@ -959,3 +959,39 @@ QString MainWindow::qtf_signature()
     qDebug()<<"Exiting QString MainWindow::qtf_signature()";
     return cmd;
 }
+
+QString MainWindow::logcat_parser()
+{
+    QString cmd = "py -3 " + rdetPath + "\\extensions\\support_scripts\\logcat_parser\\logcat_parser.py ";
+    qDebug()<<"Inside QString MainWindow::logcat_parser()";
+    cmd += " --input " + dumpsPath;
+    cmd += " --output " + outputPath;
+    cmd += " --target " + targetName;
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::logcat_parser()";
+    return cmd;
+}
+
+QString MainWindow::task_state_parser()
+{
+    QString cmd = "py -3 " + rdetPath + "\\extensions\\support_scripts\\task_state_parser\\task_state_parser.py ";
+    qDebug()<<"Inside QString MainWindow::task_state_parser()";
+    cmd += " --input " + dumpsPath;
+    cmd += " --output " + outputPath;
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::task_state_parser()";
+    return cmd;
+}
+
+QString MainWindow::tlb_dump_parser()
+{
+    QString cmd = "py -3 " + rdetPath + "\\extensions\\support_scripts\\smmu_tlb_dump_parser\\tlb_dump_parser.py ";
+    qDebug()<<"Inside QString MainWindow::tlb_dump_parser()";
+    cmd += " --input " + dumpsPath;
+    cmd += " --output " + outputPath;
+    cmd += " --reduceddump N";
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::tlb_dump_parser()";
+    return cmd;
+}
+
