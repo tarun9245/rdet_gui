@@ -724,10 +724,41 @@ QString MainWindow::split_tasks()
     return cmd;
 }
 
+QString MainWindow::hypvm_traces()
+{
+    QString cmd = "py -3 " + rdetPath + "\\lib\\support_scripts\\hymvm_traces\\hyp_parser.py ";
+    qDebug()<<"Inside QString MainWindow::hypvm_traces()";
+    cmd += "--meta " + metaPath;
+    cmd += " --hyp " + hypFilePath + hypFileName;
+    cmd += " --auto-dump " + dumpsPath;
+    cmd += " --64-bit --target " + targetName;
+    cmd += " -o " + outputPath;
+    cmd += " --reduceddump N";
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::hypvm_traces()";
+    return cmd;
+}
 
+QString MainWindow::edac_decoder()
+{
+    QString cmd = "py -3 " + rdetPath + "\\lib\\support_scripts\\edac_decoder\\edac_decoder.py ";
+    qDebug()<<"Inside QString MainWindow::edac_decoder()";
+    cmd += dumpsPath + " -o " + outputPath;
+    cmd += " --target " + targetName;
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::edac_decoder()";
+    return cmd;
+}
 
-
-
-
+QString MainWindow::ddr_data()
+{
+    QString cmd = "py -3 " + rdetPath + "\\lib\\support_scripts\\ddr_data\\ddr_data.py ";
+    qDebug()<<"Inside QString MainWindow::ddr_data()";
+    cmd += dumpsPath + " -o " + outputPath;
+    cmd += " --target " + targetName;
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::ddr_data()";
+    return cmd;
+}
 
 

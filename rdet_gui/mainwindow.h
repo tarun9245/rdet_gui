@@ -60,6 +60,9 @@ public:
     QString ddr_freq_switch();
     QString arc_stuck_debug();
     QString split_tasks();
+    QString hypvm_traces();
+    QString ddr_data();
+    QString edac_decoder();
     void readingMeta();
     void runSubScripts();
     void updatingMetaInfoToLogsFile();
