@@ -25,6 +25,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+        libsubscripts.cpp \
         main.cpp \
         mainwindow.cpp \
         metahandler.cpp \
@@ -32,6 +33,7 @@ SOURCES += \
         settings.cpp
 
 HEADERS += \
+        libsubscripts.h \
         mainwindow.h \
         metahandler.h \
         rdetlogshandler.h \

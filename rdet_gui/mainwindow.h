@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include "settings.h"
 #include "rdetlogshandler.h"
+#include "libsubscripts.h"
+#include "metahandler.h"
 
 namespace Ui {
 class MainWindow;
@@ -21,51 +23,8 @@ public:
     QString getAppsPath();
     QString getHardwareName(QString targetName);
     void runCommand(QString cmd);
+    QString ramparserCmd();
     QString rdetCmd();
-    QString ramparserCmd(QString hardware);
-    QString memoryCorruptionCmd();
-    QString tzParserCmd();
-    QString module_symbolCmd();
-    QString platform_infoCmd();
-    QString dcc_wrapperCmd();
-    QString task_statsCmd();
-    QString excessive_loggingCmd();
-    QString ramparser_svmCmd();
-    QString ddrCookiesCmd();
-    QString rdet_html_genCmd();
-    QString read_power_collapse_cnt();
-    QString tme_parser();
-    QString tme_debugging();
-    QString scandump_parser();
-    QString instr_fetcher();
-    QString bus_error_decoder();
-    QString smmu_fault_decoder();
-    QString parse_panic_regs();
-    QString edit_t32_shortcut();
-    QString watchdog_parser();
-    QString ion_buf_analyzer();
-    QString wa_log();
-    QString lockup_parser();
-    QString rtb_schedstat();
-    QString memory_corruption();
-    QString iommu_pagetable();
-    QString vidc_parse();
-    QString smmu_test_bus_decoding();
-    QString memory_summarize();
-    QString tz_parser();
-    QString aop_parser();
-    QString cpucp_parser();
-    QString aop_script();
-    QString merge_logs();
-    QString ddr_freq_switch();
-    QString arc_stuck_debug();
-    QString split_tasks();
-    QString hypvm_traces();
-    QString ddr_data();
-    QString edac_decoder();
-    QString consolidated_core_summary();
-    QString issue_signature_detector();
-    QString lpm_merge();
 /// Extension functions ///
     QString run_qtf();
     QString dcc_wrapper();
@@ -99,6 +58,8 @@ private:
     Ui::MainWindow *ui;
     settings *setting;
     RdetLogsHandler logHandler;
+    libSubScripts *lib;
+    metaHandler *meta;
     QString rdetPath;
     QString metaPath;
     QString dumpsPath, outputPath;
