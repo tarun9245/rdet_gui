@@ -761,4 +761,32 @@ QString MainWindow::ddr_data()
     return cmd;
 }
 
+QString MainWindow::consolidated_core_summary()
+{
+    QString cmd = "py -3 " + rdetPath + "\\lib\\support_scripts\\consolidated_core_summary\\consolidated_core_summary.py ";
+    qDebug()<<"Inside QString MainWindow::consolidated_core_summary()";
+    cmd += dumpsPath + " -o " + outputPath;
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::consolidated_core_summary()";
+    return cmd;
+}
 
+QString MainWindow::issue_signature_detector()
+{
+    QString cmd = "py -3 " + rdetPath + "\\lib\\support_scripts\\issue_signature_detector\\issue_signature_detector.py ";
+    qDebug()<<"Inside QString MainWindow::issue_signature_detector()";
+    cmd += outputPath;
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::issue_signature_detector()";
+    return cmd;
+}
+
+QString MainWindow::lpm_merge()
+{
+    QString cmd = "py -3 " + rdetPath + "\\lib\\support_scripts\\lpm_merge\\lpm_merge.py ";
+    qDebug()<<"Inside QString MainWindow::lpm_merge()";
+    cmd += outputPath;
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::lpm_merge()";
+    return cmd;
+}

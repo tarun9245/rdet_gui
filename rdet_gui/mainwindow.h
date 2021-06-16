@@ -63,6 +63,9 @@ public:
     QString hypvm_traces();
     QString ddr_data();
     QString edac_decoder();
+    QString consolidated_core_summary();
+    QString issue_signature_detector();
+    QString lpm_merge();
     void readingMeta();
     void runSubScripts();
     void updatingMetaInfoToLogsFile();
