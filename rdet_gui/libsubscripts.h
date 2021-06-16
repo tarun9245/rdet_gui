@@ -18,6 +18,7 @@ public:
     void setdumpsPath(QString*);
     void setOutputPath(QString*);
     void setAppsPath(QString*);
+    void setHardware(QString *hw);
     QString ramparser(QString scripts);
     QString tz_parser();
     QString module_symbol();

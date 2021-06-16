@@ -23,6 +23,9 @@ void libSubScripts::setOutputPath(QString *outDir) {
     outputPath = outDir;
 }
 
+void libSubScripts::setHardware(QString *hw) {
+    hardware = hw;
+}
 QString libSubScripts::ramparser(QString scripts)
 {
     qDebug()<<"Inside QString libSubScripts::ramparserCmd()";
