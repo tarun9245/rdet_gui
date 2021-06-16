@@ -69,6 +69,9 @@ public:
     QString run_qtf();
     QString dcc_wrapper();
     QString delete_qtf_json();
+    QString register_dump_parser();
+    QString cpuss_dump_parser();
+    QString system_parameters_wrapper();
     void readingMeta();
     void runSubScripts();
     void updatingMetaInfoToLogsFile();

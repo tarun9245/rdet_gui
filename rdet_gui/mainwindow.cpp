@@ -826,3 +826,36 @@ QString MainWindow::delete_qtf_json()
     qDebug()<<"Exiting QString MainWindow::delete_qtf_json()";
     return cmd;
 }
+
+QString MainWindow::register_dump_parser()
+{
+    QString cmd = "py -3 " + rdetPath + "\\extensions\\support_scripts\\dcc_parser\\register_dump_parser.py ";
+    qDebug()<<"Inside QString MainWindow::register_dump_parser()";
+    cmd += dumpsPath + " " + outputPath;
+    cmd += " --target " + targetName;
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::register_dump_parser()";
+    return cmd;
+}
+
+QString MainWindow::cpuss_dump_parser()
+{
+    QString cmd = "py -3 " + rdetPath + "\\extensions\\support_scripts\\cpuss_dump_parser\\cpuss_dump_parser.py ";
+    qDebug()<<"Inside QString MainWindow::cpuss_dump_parser()";
+    cmd += dumpsPath + " " + outputPath;
+    cmd += " --target " + targetName;
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::cpuss_dump_parser()";
+    return cmd;
+}
+
+QString MainWindow::system_parameters_wrapper()
+{
+    QString cmd = "py -3 " + rdetPath + "\\extensions\\support_scripts\\system_parameters\\system_parms_wrapper.py ";
+    qDebug()<<"Inside QString MainWindow::system_parameters_wrapper()";
+    cmd += dumpsPath + " " + metaPath + " --o " + outputPath;
+    cmd += " --target " + targetName + " --hw_version Y";
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::system_parameters_wrapper()";
+    return cmd;
+}
