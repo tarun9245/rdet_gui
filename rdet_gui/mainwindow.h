@@ -57,6 +57,9 @@ public:
     QString cpucp_parser();
     QString aop_script();
     QString merge_logs();
+    QString ddr_freq_switch();
+    QString arc_stuck_debug();
+    QString split_tasks();
     void readingMeta();
     void runSubScripts();
     void updatingMetaInfoToLogsFile();

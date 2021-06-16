@@ -691,3 +691,43 @@ QString MainWindow::merge_logs()
     qDebug()<<"Exiting QString MainWindow::merge_logs()";
     return cmd;
 }
+
+QString MainWindow::ddr_freq_switch()
+{
+    QString cmd = "py -3 " + rdetPath + "\\lib\\support_scripts\\ddr_freq_switch\\ddr_freq_switch.py ";
+    qDebug()<<"Inside QString MainWindow::ddr_freq_switch()";
+    cmd += dumpsPath + " --o " + outputPath;
+    cmd += " --target " + targetName;
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::ddr_freq_switch()";
+    return cmd;
+}
+
+QString MainWindow::arc_stuck_debug()
+{
+    QString cmd = "py -3 " + rdetPath + "\\lib\\support_scripts\\arc_stuck\\arc_stuck_debug.py ";
+    qDebug()<<"Inside QString MainWindow::arc_stuck_debug()";
+    cmd += dumpsPath + " " + metaPath;
+    cmd += " --target " + targetName;
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::arc_stuck_debug()";
+    return cmd;
+}
+
+QString MainWindow::split_tasks()
+{
+    QString cmd = "py -3 " + rdetPath + "\\lib\\support_scripts\\split_tasks\\split_tasks.py ";
+    qDebug()<<"Inside QString MainWindow::split_tasks()";
+    cmd += dumpsPath + " -o " + outputPath;
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::split_tasks()";
+    return cmd;
+}
+
+
+
+
+
+
+
+
