@@ -790,3 +790,39 @@ QString MainWindow::lpm_merge()
     qDebug()<<"Exiting QString MainWindow::lpm_merge()";
     return cmd;
 }
+
+// =============== Extensions functions =================== //
+
+QString MainWindow::run_qtf()
+{
+    QString cmd = "py -3 " + rdetPath + "\\extensions\\support_scripts\\run_qtf\\run_qtf.py ";
+    qDebug()<<"Inside QString MainWindow::run_qtf()";
+    cmd += dumpsPath + " --json --target " + targetName;
+    cmd += " -o " + outputPath;
+    cmd += " --metapath " + metaPath;
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::run_qtf()";
+    return cmd;
+}
+
+QString MainWindow::dcc_wrapper()
+{
+    QString cmd = "py -3 " + rdetPath + "\\extensions\\support_scripts\\dcc_parser\\dcc_wrapper.py ";
+    qDebug()<<"Inside QString MainWindow::dcc_wrapper()";
+    cmd += dumpsPath + " -a " + outputPath + "\\qtf.json";
+    cmd += " --target " + targetName;
+    cmd += " -o " + outputPath;
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::dcc_wrapper()";
+    return cmd;
+}
+
+QString MainWindow::delete_qtf_json()
+{
+    QString cmd = "py -3 " + rdetPath + "\\extensions\\support_scripts\\run_qtf\\delete_qtf_json.py ";
+    qDebug()<<"Inside QString MainWindow::delete_qtf_json()";
+    cmd += outputPath;
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::delete_qtf_json()";
+    return cmd;
+}

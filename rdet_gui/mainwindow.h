@@ -66,6 +66,9 @@ public:
     QString consolidated_core_summary();
     QString issue_signature_detector();
     QString lpm_merge();
+    QString run_qtf();
+    QString dcc_wrapper();
+    QString delete_qtf_json();
     void readingMeta();
     void runSubScripts();
     void updatingMetaInfoToLogsFile();
