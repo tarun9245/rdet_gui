@@ -926,3 +926,36 @@ QString MainWindow::noc_decode_dcc()
     qDebug()<<"Exiting QString MainWindow::noc_decode_dcc()";
     return cmd;
 }
+
+QString MainWindow::cxttable_decode()
+{
+    QString cmd = "py -3 " + rdetPath + "\\extensions\\support_scripts\\context_table_parser\\cxttable_decode.py ";
+    qDebug()<<"Inside QString MainWindow::cxttable_decode()";
+    cmd += " --input " + dumpsPath;
+    cmd += " --output " + outputPath;
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::cxttable_decode()";
+    return cmd;
+}
+
+QString MainWindow::qtf_parser()
+{
+    QString cmd = "py -3 " + rdetPath + "\\extensions\\support_scripts\\qtf_parser\\qtf_parser.py ";
+    qDebug()<<"Inside QString MainWindow::qtf_parser()";
+    cmd += " --input " + dumpsPath;
+    cmd += " --output " + outputPath;
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::qtf_parser()";
+    return cmd;
+}
+
+QString MainWindow::qtf_signature()
+{
+    QString cmd = "py -3 " + rdetPath + "\\extensions\\support_scripts\\qtf_signature\\qtf_signature.py ";
+    qDebug()<<"Inside QString MainWindow::qtf_signature()";
+    cmd += " --input " + dumpsPath;
+    cmd += " --output " + outputPath;
+    qDebug()<<"cmd = "<<cmd;
+    qDebug()<<"Exiting QString MainWindow::qtf_signature()";
+    return cmd;
+}

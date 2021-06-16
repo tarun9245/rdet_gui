@@ -79,6 +79,9 @@ public:
     QString sensein_noc();
     QString shlog_parser();
     QString noc_decode_dcc();
+    QString cxttable_decode();
+    QString qtf_parser();
+    QString qtf_signature();
     void readingMeta();
     void runSubScripts();
     void updatingMetaInfoToLogsFile();
