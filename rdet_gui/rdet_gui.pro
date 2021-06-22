@@ -6,6 +6,7 @@
 
 QT       += core gui
 QT      += network
+QT      += xml
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = rdet_gui
@@ -25,19 +26,23 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+        extensionssubscripts.cpp \
         libsubscripts.cpp \
         main.cpp \
         mainwindow.cpp \
         metahandler.cpp \
         rdetlogshandler.cpp \
-        settings.cpp
+        settings.cpp \
+        xmlfilehandler.cpp
 
 HEADERS += \
+        extensionssubscripts.h \
         libsubscripts.h \
         mainwindow.h \
         metahandler.h \
         rdetlogshandler.h \
-        settings.h
+        settings.h \
+        xmlfilehandler.h
 
 FORMS += \
         mainwindow.ui \
