@@ -19,6 +19,7 @@ public:
     void extractRpmComponents(QDomElement &rpm);
     void extractModemComponents(QDomElement &modem);
     void extractBootComponents(QDomElement &boot);
+    void extractTargetName(QDomElement &target);
 };
 
 #endif // XMLFILEHANDLER_H
