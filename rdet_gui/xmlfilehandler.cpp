@@ -71,7 +71,7 @@ void xmlFileHandler::extractAppsComponents(QDomElement &apps) {
         if(apps.tagName() == "windows_root_path") {
             appsBasePath = apps.text();
             qDebug()<<"APPS Path = "<<appsBasePath;
-        }else if(apps.tagName() == "file_ref" && apps.attribute("cmm_file_var") == "APPS_ELF") {
+        }else if(apps.attribute("cmm_file_var") == "APPS_ELF") {
             QDomElement child = apps.firstChild().toElement();
             while(!child.isNull()) {
                 if(child.tagName() == "file_name") {
@@ -96,7 +96,7 @@ void xmlFileHandler::extractTzComponents(QDomElement &tz) {
         if(tz.tagName() == "windows_root_path") {
             tzPath = tz.text();
             qDebug()<<"TZ Path = "<<tzPath;
-        }else if(tz.tagName() == "file_ref" && tz.attribute("cmm_file_var") == "QSEE_ELF") {
+        }else if(tz.attribute("cmm_file_var") == "QSEE_ELF" || tz.attribute("cmm_file_var") == "TZ_ELF") {
             QDomElement child = tz.firstChild().toElement();
             while(!child.isNull()) {
                 if(child.tagName() == "file_name") {
@@ -109,7 +109,7 @@ void xmlFileHandler::extractTzComponents(QDomElement &tz) {
                 }
                 child = child.nextSibling().toElement();
             }
-        }else if(tz.tagName() == "file_ref" && tz.attribute("cmm_file_var") == "HYP_ELF") {
+        }else if(tz.attribute("cmm_file_var") == "HYP_ELF") {
             QDomElement child = tz.firstChild().toElement();
             while(!child.isNull()) {
                 if(child.tagName() == "file_name") {
@@ -122,7 +122,7 @@ void xmlFileHandler::extractTzComponents(QDomElement &tz) {
                 }
                 child = child.nextSibling().toElement();
             }
-        }else if(tz.tagName() == "file_ref" && tz.attribute("cmm_file_var") == "MON_ELF") {
+        }else if(tz.attribute("cmm_file_var") == "MON_ELF") {
             QDomElement child = tz.firstChild().toElement();
             while(!child.isNull()) {
                 if(child.tagName() == "file_name") {
