@@ -69,14 +69,18 @@ void xmlFileHandler::extractAppsComponents(QDomElement &apps) {
     qDebug("Inside void xmlFileHandler::extractAppsComponents(QDomElement &apps)");
     while (!apps.isNull()) {
         if(apps.tagName() == "windows_root_path") {
-            qDebug()<<"APPS Path = "<<apps.text();
+            appsBasePath = apps.text();
+            qDebug()<<"APPS Path = "<<appsBasePath;
         }else if(apps.tagName() == "file_ref" && apps.attribute("cmm_file_var") == "APPS_ELF") {
             QDomElement child = apps.firstChild().toElement();
             while(!child.isNull()) {
-                if(child.tagName() == "file_name")
+                if(child.tagName() == "file_name") {
                     qDebug()<<"File Name = "<<child.text();
-                else if(child.tagName() == "file_path")
-                    qDebug()<<"File Path = "<<child.text();
+                }
+                else if(child.tagName() == "file_path") {
+                    vmlinuxPath = pathMaker(child.text());
+                    qDebug()<<"File Path = "<<vmlinuxPath;
+                }
                 child = child.nextSibling().toElement();
             }
             break;
@@ -90,32 +94,45 @@ void xmlFileHandler::extractTzComponents(QDomElement &tz) {
     qDebug("Inside void xmlFileHandler::extractTzComponents(QDomElement &tz)");
     while (!tz.isNull()) {
         if(tz.tagName() == "windows_root_path") {
-            qDebug()<<"TZ Path = "<<tz.text();
+            tzPath = tz.text();
+            qDebug()<<"TZ Path = "<<tzPath;
         }else if(tz.tagName() == "file_ref" && tz.attribute("cmm_file_var") == "QSEE_ELF") {
             QDomElement child = tz.firstChild().toElement();
             while(!child.isNull()) {
-                if(child.tagName() == "file_name")
-                    qDebug()<<"File Name = "<<child.text();
-                else if(child.tagName() == "file_path")
-                    qDebug()<<"File Path = "<<child.text();
+                if(child.tagName() == "file_name") {
+                    qseeFileName = child.text();
+                    qDebug()<<"File Name = "<<qseeFileName;
+                }
+                else if(child.tagName() == "file_path") {
+                    qseeFilePath = pathMaker(child.text());
+                    qDebug()<<"File Path = "<<qseeFilePath;
+                }
                 child = child.nextSibling().toElement();
             }
         }else if(tz.tagName() == "file_ref" && tz.attribute("cmm_file_var") == "HYP_ELF") {
             QDomElement child = tz.firstChild().toElement();
             while(!child.isNull()) {
-                if(child.tagName() == "file_name")
-                    qDebug()<<"File Name = "<<child.text();
-                else if(child.tagName() == "file_path")
-                    qDebug()<<"File Path = "<<child.text();
+                if(child.tagName() == "file_name") {
+                    hypFileName = child.text();
+                    qDebug()<<"File Name = "<<hypFileName;
+                }
+                else if(child.tagName() == "file_path") {
+                    hypFilePath = pathMaker(child.text());
+                    qDebug()<<"File Path = "<<hypFilePath;
+                }
                 child = child.nextSibling().toElement();
             }
         }else if(tz.tagName() == "file_ref" && tz.attribute("cmm_file_var") == "MON_ELF") {
             QDomElement child = tz.firstChild().toElement();
             while(!child.isNull()) {
-                if(child.tagName() == "file_name")
-                    qDebug()<<"File Name = "<<child.text();
-                else if(child.tagName() == "file_path")
-                    qDebug()<<"File Path = "<<child.text();
+                if(child.tagName() == "file_name") {
+                    monFileName = child.text();
+                    qDebug()<<"File Name = "<<monFileName;
+                }
+                else if(child.tagName() == "file_path") {
+                    monFilePath = pathMaker(child.text());
+                    qDebug()<<"File Path = "<<monFilePath;
+                }
                 child = child.nextSibling().toElement();
             }
         }
@@ -128,14 +145,19 @@ void xmlFileHandler::extractAopComponents(QDomElement &aop) {
     qDebug("Inside void xmlFileHandler::extractAopComponents(QDomElement &aop)");
     while (!aop.isNull()) {
         if(aop.tagName() == "windows_root_path") {
-            qDebug()<<"AOP Path = "<<aop.text();
+            aopBasePath = aop.text();
+            qDebug()<<"AOP Path = "<<aopBasePath;
         }else if(aop.tagName() == "file_ref" && aop.attribute("cmm_file_var") == "AOP_ELF") {
             QDomElement child = aop.firstChild().toElement();
             while(!child.isNull()) {
-                if(child.tagName() == "file_name")
-                    qDebug()<<"File Name = "<<child.text();
-                else if(child.tagName() == "file_path")
-                    qDebug()<<"File Path = "<<child.text();
+                if(child.tagName() == "file_name") {
+                    aopFileName = child.text();
+                    qDebug()<<"File Name = "<<aopFileName;
+                }
+                else if(child.tagName() == "file_path") {
+                    aopFilePath = pathMaker(child.text());
+                    qDebug()<<"File Path = "<<aopFilePath;
+                }
                 child = child.nextSibling().toElement();
             }
             break;
@@ -150,14 +172,19 @@ void xmlFileHandler::extractRpmComponents(QDomElement &rpm) {
     qDebug("Inside void xmlFileHandler::extractRpmComponents(QDomElement &rpm)");
     while (!rpm.isNull()) {
         if(rpm.tagName() == "windows_root_path") {
-            qDebug()<<"RPM Path = "<<rpm.text();
+            rpmBasePath = rpm.text();
+            qDebug()<<"RPM Path = "<<rpmBasePath;
         }else if(rpm.tagName() == "file_ref" && rpm.attribute("cmm_file_var") == "RPM_ELF") {
             QDomElement child = rpm.firstChild().toElement();
             while(!child.isNull()) {
-                if(child.tagName() == "file_name")
-                    qDebug()<<"File Name = "<<child.text();
-                else if(child.tagName() == "file_path")
-                    qDebug()<<"File Path = "<<child.text();
+                if(child.tagName() == "file_name") {
+                    rpmFileName = pathMaker(child.text());
+                    qDebug()<<"File Name = "<<rpmFileName;
+                }
+                else if(child.tagName() == "file_path") {
+                    rpmFilePath = pathMaker(child.text());
+                    qDebug()<<"File Path = "<<rpmFilePath;
+                }
                 child = child.nextSibling().toElement();
             }
             break;
@@ -171,7 +198,8 @@ void xmlFileHandler::extractBootComponents(QDomElement &boot) {
     qDebug("Inside void xmlFileHandler::extractBootComponents(QDomElement &boot)");
     while (!boot.isNull()) {
         if(boot.tagName() == "windows_root_path") {
-            qDebug()<<"BOOT Path = "<<boot.text();
+            bootBasePath = boot.text();
+            qDebug()<<"BOOT Path = "<<bootBasePath;
             break;
         }
         boot = boot.nextSibling().toElement();
@@ -183,14 +211,19 @@ void xmlFileHandler::extractModemComponents(QDomElement &modem) {
     qDebug("Inside void xmlFileHandler::extractModemComponents(QDomElement &modem)");
     while (!modem.isNull()) {
         if(modem.tagName() == "windows_root_path") {
-            qDebug()<<"Modem Path = "<<modem.text();
+            modemBasePath = modem.text();
+            qDebug()<<"Modem Path = "<<modemBasePath;
         }else if(modem.tagName() == "file_ref" && modem.attribute("cmm_file_var") == "ORIG_MPSSPROC_ELF") {
             QDomElement child = modem.firstChild().toElement();
             while(!child.isNull()) {
-                if(child.tagName() == "file_name")
-                    qDebug()<<"File Name = "<<child.text();
-                else if(child.tagName() == "file_path")
-                    qDebug()<<"File Path = "<<child.text();
+                if(child.tagName() == "file_name") {
+                    modemFileName = child.text();
+                    qDebug()<<"File Name = "<<modemFileName;
+                }
+                else if(child.tagName() == "file_path") {
+                    modemFilePath = pathMaker(child.text());
+                    qDebug()<<"File Path = "<<modemFilePath;
+                }
                 child = child.nextSibling().toElement();
             }
             break;
@@ -204,12 +237,88 @@ void xmlFileHandler::extractTargetName(QDomElement &target) {
     qDebug("Inside void xmlFileHandler::extractTargetName(QDomElement target)");
     while(!target.isNull()) {
         if(target.tagName() == "chipid" && target.attribute("cmm_var") == "CHIPID") {
-            qDebug()<<"Target Name = "<<target.text();
+            targetName = target.text();
+            qDebug()<<"Target Name = "<<targetName;
+            break;
         }
         target = target.nextSibling().toElement();
     }
     qDebug("Exiting void xmlFileHandler::extractTargetName(QDomElement target)");
 }
 
+QString xmlFileHandler::pathMaker(QString input)
+{
+    qDebug()<<"Inside QString metaHandler::pathMaker(QString inputPath)";
+    QString path;
+    QStringList temp = input.split('/');
+    for(int i=0;i<temp.size();i++) {
+        QString str = temp.at(i);
+        if(str != "") {
+            if(str.contains(':')) {
+                str = str.split(':').at(1);
+                str.chop(1);
+            }
+            path += str + "\\";
+        }
+    }
+    qDebug()<<"Path = "<<path;
+    qDebug()<<"Exiting QString metaHandler::pathMaker(QString inputPath)";
+    return path;
+}
 
 //============================= Interface =====================================
+QString xmlFileHandler::getTargetName() {
+    return targetName;
+}
+
+QString xmlFileHandler::getAppsBasePath() {
+    return appsBasePath;
+}
+
+QString xmlFileHandler::getVmlinuxPath() {
+    return vmlinuxPath;
+}
+
+QString xmlFileHandler::getTzBasePath() {
+    return tzPath;
+}
+
+QString xmlFileHandler::getMonFileName() {
+    return monFileName;
+}
+
+QString xmlFileHandler::getMonFilePath() {
+    return monFilePath;
+}
+
+QString xmlFileHandler::getHypFileName() {
+    return hypFileName;
+}
+
+QString xmlFileHandler::getHypFilePath() {
+    return hypFilePath;
+}
+
+QString xmlFileHandler::getQseeFileName() {
+    return qseeFileName;
+}
+
+QString xmlFileHandler::getQseeFilePath() {
+    return qseeFilePath;
+}
+
+QString xmlFileHandler::getAopFileName() {
+    return aopFileName;
+}
+
+QString xmlFileHandler::getAopFilePath() {
+    return aopFilePath;
+}
+
+QString xmlFileHandler::getRpmFileName() {
+    return rpmFileName;
+}
+
+QString xmlFileHandler::getRpmFilePath() {
+    return rpmFilePath;
+}
