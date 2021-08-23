@@ -6,6 +6,8 @@
 #include "rdetlogshandler.h"
 #include "libsubscripts.h"
 #include "metahandler.h"
+#include "extensionssubscripts.h"
+#include "xmlfilehandler.h"
 
 namespace Ui {
 class MainWindow;
@@ -25,25 +27,6 @@ public:
     void runCommand(QString cmd);
     QString ramparserCmd();
     QString rdetCmd();
-/// Extension functions ///
-    QString run_qtf();
-    QString dcc_wrapper();
-    QString delete_qtf_json();
-    QString register_dump_parser();
-    QString cpuss_dump_parser();
-    QString system_parameters_wrapper();
-    QString dcc_gladiator_parser_v2();
-    QString ddr_debugging();
-    QString ddr_process_dumps();
-    QString sensein_noc();
-    QString shlog_parser();
-    QString noc_decode_dcc();
-    QString cxttable_decode();
-    QString qtf_parser();
-    QString qtf_signature();
-    QString logcat_parser();
-    QString task_state_parser();
-    QString tlb_dump_parser();
     void readingMeta();
     void runSubScripts();
     void updatingMetaInfoToLogsFile();
@@ -54,11 +37,15 @@ private slots:
 
     void on_checkBox_ramparser_stateChanged(int arg1);
 
+    void on_lineEditMetaPath_textChanged(const QString &arg1);
+
 private:
     Ui::MainWindow *ui;
     settings *setting;
     RdetLogsHandler logHandler;
+    xmlFileHandler *xml;
     libSubScripts *lib;
+    extensionsSubScripts *ext;
     metaHandler *meta;
     QString rdetPath;
     QString metaPath;

@@ -8,12 +8,15 @@
 #include <qjsondocument.h>
 #include "rdetlogshandler.h"
 #include "libsubscripts.h"
+#include "xmlfilehandler.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    xml = new xmlFileHandler();
+    ui->pushButtonSubmit->setEnabled(false);
     rdetPath = setting->getRdetPath();
     on_checkBox_ramparser_stateChanged(0);
 //    ui->pushButtonSettings->setIcon(QIcon("C:/Users/tarkum/Downloads/GitProject/rdet_gui/rdet_gui/settings_png.png"));
@@ -166,6 +169,13 @@ void MainWindow::runSubScripts()
     lib->setAppsPath(&appsPath);
     lib->setOutputPath(&outputPath);
     lib->setHardware(&hardware);
+
+    ext = new extensionsSubScripts(meta,&rdetPath);
+    ext->setdumpsPath(&dumpsPath);
+    ext->setAppsPath(&appsPath);
+    ext->setOutputPath(&outputPath);
+    ext->setHardware(&hardware);
+
     if(ui->checkBox_module_symbol->checkState() == Qt::Checked) {
         cmd = lib->module_symbol();
         runCommand(cmd);
@@ -174,9 +184,9 @@ void MainWindow::runSubScripts()
         cmd = ramparserCmd();
         runCommand(cmd);
     }
-    if(ui->checkBox_ramparser_svm->checkState() == Qt::Checked) {
-        //cmd = lib->ramparser_svm();
-        //runCommand(cmd);
+    if(ui->checkBox_parse_panic_regs->checkState() == Qt::Checked) {
+        cmd = lib->parse_panic_regs();
+        runCommand(cmd);
     }
     if(ui->checkBox_dcc_wrapper->checkState() == Qt::Checked) {
         cmd = lib->dcc_wrapper();
@@ -347,205 +357,21 @@ QString MainWindow::ramparserCmd()
 
 // =============== Extensions functions =================== //
 
-QString MainWindow::run_qtf()
+void MainWindow::on_lineEditMetaPath_textChanged(const QString &arg1)
 {
-    QString cmd = "py -3 " + rdetPath + "\\extensions\\support_scripts\\run_qtf\\run_qtf.py ";
-    qDebug()<<"Inside QString MainWindow::run_qtf()";
-    cmd += dumpsPath + " --json --target " + targetName;
-    cmd += " -o " + outputPath;
-    cmd += " --metapath " + metaPath;
-    qDebug()<<"cmd = "<<cmd;
-    qDebug()<<"Exiting QString MainWindow::run_qtf()";
-    return cmd;
+    qDebug("Inside void MainWindow::on_lineEditMetaPath_textChanged(const QString &arg1)");
+    ui->pushButtonSubmit->setEnabled(false);
+    if(arg1 == "")
+        return;
+    QString metaPath = arg1.trimmed() + "\\contents.xml";
+    if(!xml->open(metaPath)) {
+        qDebug()<<"Unable to open the file ";
+        QMessageBox::warning(this,"Error","Unable to Identify the Target at Given META Location..");
+        return;
+        //exit(1);
+    }
+    xml->extract();
+    ui->label_HardwareName->setText(xml->getTargetName());
+    ui->pushButtonSubmit->setEnabled(true);
+    qDebug("Exiting void MainWindow::on_lineEditMetaPath_textChanged(const QString &arg1)");
 }
-
-QString MainWindow::dcc_wrapper()
-{
-    QString cmd = "py -3 " + rdetPath + "\\extensions\\support_scripts\\dcc_parser\\dcc_wrapper.py ";
-    qDebug()<<"Inside QString MainWindow::dcc_wrapper()";
-    cmd += dumpsPath + " -a " + outputPath + "\\qtf.json";
-    cmd += " --target " + targetName;
-    cmd += " -o " + outputPath;
-    qDebug()<<"cmd = "<<cmd;
-    qDebug()<<"Exiting QString MainWindow::dcc_wrapper()";
-    return cmd;
-}
-
-QString MainWindow::delete_qtf_json()
-{
-    QString cmd = "py -3 " + rdetPath + "\\extensions\\support_scripts\\run_qtf\\delete_qtf_json.py ";
-    qDebug()<<"Inside QString MainWindow::delete_qtf_json()";
-    cmd += outputPath;
-    qDebug()<<"cmd = "<<cmd;
-    qDebug()<<"Exiting QString MainWindow::delete_qtf_json()";
-    return cmd;
-}
-
-QString MainWindow::register_dump_parser()
-{
-    QString cmd = "py -3 " + rdetPath + "\\extensions\\support_scripts\\dcc_parser\\register_dump_parser.py ";
-    qDebug()<<"Inside QString MainWindow::register_dump_parser()";
-    cmd += dumpsPath + " " + outputPath;
-    cmd += " --target " + targetName;
-    qDebug()<<"cmd = "<<cmd;
-    qDebug()<<"Exiting QString MainWindow::register_dump_parser()";
-    return cmd;
-}
-
-QString MainWindow::cpuss_dump_parser()
-{
-    QString cmd = "py -3 " + rdetPath + "\\extensions\\support_scripts\\cpuss_dump_parser\\cpuss_dump_parser.py ";
-    qDebug()<<"Inside QString MainWindow::cpuss_dump_parser()";
-    cmd += dumpsPath + " " + outputPath;
-    cmd += " --target " + targetName;
-    qDebug()<<"cmd = "<<cmd;
-    qDebug()<<"Exiting QString MainWindow::cpuss_dump_parser()";
-    return cmd;
-}
-
-QString MainWindow::system_parameters_wrapper()
-{
-    QString cmd = "py -3 " + rdetPath + "\\extensions\\support_scripts\\system_parameters\\system_parms_wrapper.py ";
-    qDebug()<<"Inside QString MainWindow::system_parameters_wrapper()";
-    cmd += dumpsPath + " " + metaPath + " --o " + outputPath;
-    cmd += " --target " + targetName + " --hw_version Y";
-    qDebug()<<"cmd = "<<cmd;
-    qDebug()<<"Exiting QString MainWindow::system_parameters_wrapper()";
-    return cmd;
-}
-
-QString MainWindow::dcc_gladiator_parser_v2()
-{
-    QString cmd = "py -3 " + rdetPath + "\\extensions\\support_scripts\\dcc_gladiator_parser\\dcc_gladiator_parser_v2.py ";
-    qDebug()<<"Inside QString MainWindow::dcc_gladiator_parser_v2()";
-    cmd += outputPath;
-    cmd += " --target " + targetName;
-    qDebug()<<"cmd = "<<cmd;
-    qDebug()<<"Exiting QString MainWindow::dcc_gladiator_parser_v2()";
-    return cmd;
-}
-
-QString MainWindow::ddr_debugging()
-{
-    QString cmd = "py -3 " + rdetPath + "\\extensions\\support_scripts\\ddr_debugging\\ddr_debugging.py ";
-    qDebug()<<"Inside QString MainWindow::ddr_debugging()";
-    cmd += outputPath;
-    cmd += " --target " + targetName;
-    qDebug()<<"cmd = "<<cmd;
-    qDebug()<<"Exiting QString MainWindow::ddr_debugging()";
-    return cmd;
-}
-
-QString MainWindow::ddr_process_dumps()
-{
-    QString cmd = "py -3 " + rdetPath + "\\extensions\\support_scripts\\DDR_process_dumps\\ddr_process_dumps_warpper.py ";
-    qDebug()<<"Inside QString MainWindow::ddr_process_dumps()";
-    cmd += outputPath;
-    cmd += " --target " + targetName;
-    qDebug()<<"cmd = "<<cmd;
-    qDebug()<<"Exiting QString MainWindow::ddr_process_dumps()";
-    return cmd;
-}
-
-QString MainWindow::sensein_noc()
-{
-    QString cmd = "py -3 " + rdetPath + "\\extensions\\support_scripts\\sensein_noc\\sensein_noc.py ";
-    qDebug()<<"Inside QString MainWindow::sensein_noc()";
-    cmd += outputPath;
-    cmd += " --target " + targetName;
-    qDebug()<<"cmd = "<<cmd;
-    qDebug()<<"Exiting QString MainWindow::sensein_noc()";
-    return cmd;
-}
-
-QString MainWindow::shlog_parser()
-{
-    QString cmd = "py -3 " + rdetPath + "\\extensions\\support_scripts\\qtf_parser\\shlog_parser.py ";
-    qDebug()<<"Inside QString MainWindow::shlog_parser()";
-    cmd += " --input " + dumpsPath;
-    cmd += " --output " + outputPath;
-    qDebug()<<"cmd = "<<cmd;
-    qDebug()<<"Exiting QString MainWindow::shlog_parser()";
-    return cmd;
-}
-
-QString MainWindow::noc_decode_dcc()
-{
-    QString cmd = "py -3 " + rdetPath + "\\extensions\\support_scripts\\noc_decode_dcc\\noc_decode_dcc.py ";
-    qDebug()<<"Inside QString MainWindow::noc_decode_dcc()";
-    cmd += " --input " + dumpsPath;
-    cmd += " --output " + outputPath;
-    cmd += " --target " + targetName;
-    qDebug()<<"cmd = "<<cmd;
-    qDebug()<<"Exiting QString MainWindow::noc_decode_dcc()";
-    return cmd;
-}
-
-QString MainWindow::cxttable_decode()
-{
-    QString cmd = "py -3 " + rdetPath + "\\extensions\\support_scripts\\context_table_parser\\cxttable_decode.py ";
-    qDebug()<<"Inside QString MainWindow::cxttable_decode()";
-    cmd += " --input " + dumpsPath;
-    cmd += " --output " + outputPath;
-    qDebug()<<"cmd = "<<cmd;
-    qDebug()<<"Exiting QString MainWindow::cxttable_decode()";
-    return cmd;
-}
-
-QString MainWindow::qtf_parser()
-{
-    QString cmd = "py -3 " + rdetPath + "\\extensions\\support_scripts\\qtf_parser\\qtf_parser.py ";
-    qDebug()<<"Inside QString MainWindow::qtf_parser()";
-    cmd += " --input " + dumpsPath;
-    cmd += " --output " + outputPath;
-    qDebug()<<"cmd = "<<cmd;
-    qDebug()<<"Exiting QString MainWindow::qtf_parser()";
-    return cmd;
-}
-
-QString MainWindow::qtf_signature()
-{
-    QString cmd = "py -3 " + rdetPath + "\\extensions\\support_scripts\\qtf_signature\\qtf_signature.py ";
-    qDebug()<<"Inside QString MainWindow::qtf_signature()";
-    cmd += " --input " + dumpsPath;
-    cmd += " --output " + outputPath;
-    qDebug()<<"cmd = "<<cmd;
-    qDebug()<<"Exiting QString MainWindow::qtf_signature()";
-    return cmd;
-}
-
-QString MainWindow::logcat_parser()
-{
-    QString cmd = "py -3 " + rdetPath + "\\extensions\\support_scripts\\logcat_parser\\logcat_parser.py ";
-    qDebug()<<"Inside QString MainWindow::logcat_parser()";
-    cmd += " --input " + dumpsPath;
-    cmd += " --output " + outputPath;
-    cmd += " --target " + targetName;
-    qDebug()<<"cmd = "<<cmd;
-    qDebug()<<"Exiting QString MainWindow::logcat_parser()";
-    return cmd;
-}
-
-QString MainWindow::task_state_parser()
-{
-    QString cmd = "py -3 " + rdetPath + "\\extensions\\support_scripts\\task_state_parser\\task_state_parser.py ";
-    qDebug()<<"Inside QString MainWindow::task_state_parser()";
-    cmd += " --input " + dumpsPath;
-    cmd += " --output " + outputPath;
-    qDebug()<<"cmd = "<<cmd;
-    qDebug()<<"Exiting QString MainWindow::task_state_parser()";
-    return cmd;
-}
-
-QString MainWindow::tlb_dump_parser()
-{
-    QString cmd = "py -3 " + rdetPath + "\\extensions\\support_scripts\\smmu_tlb_dump_parser\\tlb_dump_parser.py ";
-    qDebug()<<"Inside QString MainWindow::tlb_dump_parser()";
-    cmd += " --input " + dumpsPath;
-    cmd += " --output " + outputPath;
-    cmd += " --reduceddump N";
-    qDebug()<<"cmd = "<<cmd;
-    qDebug()<<"Exiting QString MainWindow::tlb_dump_parser()";
-    return cmd;
-}
-
